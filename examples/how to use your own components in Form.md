@@ -88,7 +88,7 @@ const Screen = (props) => {
     const inputRef = useRef()
 
     const getValue = () => {
-        // inputRef.current.value <--- this is the valye of component
+        // inputRef.current.value <--- this is the value of component
         console.log(inputRef.current.value)
     }
 

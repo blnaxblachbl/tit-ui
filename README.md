@@ -345,13 +345,13 @@ and all FlatList component props |  |  | any
 ### Form
 Form is wrapper component that can return all named components value like web froms. Working with UI components of this library. If you can use web forms you know how to use this Form. All you need is:
 
-1. **Name your components**
+1. **Name your components**  
 Provide a "name" props to component you want to take a value. This name will be key in returned result object
 
-2. **Mark your trigger**
+2. **Mark your trigger**  
 Provide a "type" props with string "submit" value to mark trigger. All pressable component can be a trigger. Form put "onSubmit" function in "onPress" props of it. And when trigger pressed values fill pass to "onSubmit" function arguments.
 
-3. **Provide a "onSubmit" function**
+3. **Provide a "onSubmit" function**  
 Provide a function in "onSubmit" props of Form compoent.
 
 Thats it! Your form is ready. If you want to use your own component in Form, you should modify your component like [this](../main/examples/how%20to%20use%20your%20own%20components%20in%20Form.md).

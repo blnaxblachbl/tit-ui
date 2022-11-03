@@ -55,7 +55,7 @@ Greate! Now you should return component value by reference. To solve it, you nee
 **STEP 3** - returning value:
 
 ```javascript
-import { useState, forwardRef } from 'react' // <--- this function
+import { useState, forwardRef, useImperativeHandle } from 'react' // <--- this hook
 import {
     TextInput,
 } from 'react-native'

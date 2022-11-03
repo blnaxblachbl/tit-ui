@@ -14,7 +14,15 @@
     "react": "*",
     "react-native": "*"
   },
-  "author": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/blnaxblachbl/tit-ui.git"
+  },
+  "bugs": {
+    "url": "https://github.com/blnaxblachbl/tit-ui/issues"
+  },
+  "homepage": "https://github.com/blnaxblachbl/tit-ui#readme",
+  "author": "Tit Hardwood <blnaxblachbl@gmail.com>",
   "license": "ISC",
   "keywords": [
     "react-native",

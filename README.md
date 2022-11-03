@@ -354,7 +354,7 @@ Provide a "type" props with string "submit" value to mark trigger. All pressable
 3. **Provide a "onSubmit" function**
 Provide a function in "onSubmit" props of Form compoent.
 
-Thats it! Your form is ready. If you want to use your own component in Form, you should modify your component like this.
+Thats it! Your form is ready. If you want to use your own component in Form, you should modify your component like [this](../blob/master/LICENSE).
 
 ```javascript
 import { Form, UI } from 'tit-ui'

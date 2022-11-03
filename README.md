@@ -83,7 +83,7 @@ enabledBackgroundColor | switch background color when it is on | '#4666ff' | str
 disabledBackgroundColor | switch background color when it is off | '#ccc' | string
 onChangeState | callback when switch is clicked| (value) => {callback(value)} | func
 
-- **_TextInput_** - is UI component with animated lable of text input. 
+- **_TextInput_** - is UI component of text input. 
 
 ```javascript
 //...
@@ -343,7 +343,7 @@ emptyComponenText | Default ListEmptyComponent text | "There is nothing here" | 
 and all FlatList component props |  |  | any
 
 ### Form
-Form is wrapper component that can return all named components value like web froms. Working with UI components of this library. If you can use web forms you know how to use this Form. All you need is:
+Form is wrapper component that can return all named components value like web forms. Working with UI components of this library. If you can use web forms you know how to use this Form. All you need is:
 
 1. **Name your components** - Provide a "name" props to component you want to take a value. This name will be key in returned result object
 

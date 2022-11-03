@@ -84,7 +84,7 @@ Well done! Now you can get component value by reference. And now this component 
 ```javascript
 import MyInput from '../components/MyInput.js'
 
-const MyInput = forwardRef((props, ref) => {
+const Screen = (props) => {
     const inputRef = useRef()
 
     const getValue = () => {
@@ -99,7 +99,7 @@ const MyInput = forwardRef((props, ref) => {
             onPress={getValue}
         />
     )
-})
+}
 
 export default MyInput
 ```

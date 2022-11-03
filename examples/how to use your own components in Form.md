@@ -83,6 +83,7 @@ Well done! Now you can get component value by reference. And now this component 
 
 ```javascript
 import MyInput from '../components/MyInput.js'
+import { UI } from 'tit-ui'
 
 const Screen = (props) => {
     const inputRef = useRef()

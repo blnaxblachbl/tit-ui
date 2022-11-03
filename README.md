@@ -347,7 +347,7 @@ Form is wrapper component that can return all named components value like web fr
 
 1. **Name your components** - Provide a "name" props to component you want to take a value. This name will be key in returned result object
 
-2. **Mark your trigger** - Provide a "type" props with string "submit" value to mark trigger. All pressable component can be a trigger. Form put "onSubmit" function in "onPress" props of it. And when trigger pressed values fill pass to "onSubmit" function arguments.
+2. **Mark your trigger** - Provide a "type" props with string "submit" value to mark trigger. All pressable component can be a trigger. Form put "onSubmit" function into "onPress" props of it. And when trigger pressed values will pass to "onSubmit" function arguments.
 
 3. **Provide a "onSubmit" function** - Provide a function in "onSubmit" props of Form compoent.
 

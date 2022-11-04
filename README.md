@@ -84,7 +84,7 @@ disabledBackgroundColor | switch background color when it is off | '#ccc' | stri
 onChangeState | callback when switch is clicked| (value) => {callback(value)} | func
 
 #### Methods
-Name | Description | Return type
+Name | Description | Return
 ------|-------------|----------|-----------
 value | value of switch | bool
 setValue() | seting value | none

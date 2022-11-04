@@ -85,7 +85,7 @@ onChangeState | callback when switch is clicked| (value) => {callback(value)} | 
 
 #### Methods
 Name | Description | Return type
-------|-------------|----------|-----------
+------|-------------|----------
 value | value of switch | bool
 setValue() | seting value | none
 
@@ -130,7 +130,7 @@ and all TextInput component props |  |  | any
 
 #### Methods
 Name | Description | Return type
-------|-------------|----------|-----------
+------|-------------|----------
 inputRef | reference of TextInput | React-Native reference
 focused | true if TextInput focused and false if not | bool
 value | value of TextInput | string
@@ -210,7 +210,7 @@ initValue | initial value of button | false | bool
 
 #### Methods
 Name | Description | Return type
-------|-------------|----------|-----------
+------|-------------|----------
 value | value of radio button | bool
 setValue() | seting value | none
 
@@ -436,7 +436,7 @@ initValues | object of initial values of form | undefined | object
 
 #### Methods
 Name | Description | Return type
-------|-------------|----------|-----------
+------|-------------|----------
 submit() | Method to trigger "onSubmit" function | none
 
 ### Functions

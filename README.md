@@ -83,6 +83,12 @@ enabledBackgroundColor | switch background color when it is on | '#4666ff' | str
 disabledBackgroundColor | switch background color when it is off | '#ccc' | string
 onChangeState | callback when switch is clicked| (value) => {callback(value)} | func
 
+#### Methods
+Name | Description | Return type
+------|-------------|----------|-----------
+value | value of switch | bool
+setValue() | seting value | none
+
 - **_TextInput_** - is UI component of text input. 
 
 ```javascript
@@ -121,6 +127,14 @@ focusedLabelColor | label text color when TextInput is focused | "#4666ff" | str
 Left | component that will render on left side of input | null | React Component
 Right | component that will render on right side of input | null | React Component
 and all TextInput component props |  |  | any
+
+#### Methods
+Name | Description | Return type
+------|-------------|----------|-----------
+inputRef | reference of TextInput | React-Native reference
+focused | true if TextInput focused and false if not | bool
+value | value of TextInput | string
+setValue() | seting value | none
 
 - **_Button_** - is UI component of button.
 
@@ -193,6 +207,12 @@ titleStyle | style of title component based on React-Native Text component | {} 
 activeColor | color of circles when button is checked | "#494043" | string
 inactiveColor | color of circles when button is unchecked | "#494043" | string
 initValue | initial value of button | false | bool
+
+#### Methods
+Name | Description | Return type
+------|-------------|----------|-----------
+value | value of radio button | bool
+setValue() | seting value | none
 
 - **_Avatar_** - is UI component of image for lists to profile screens.
 
@@ -407,6 +427,17 @@ return (
     </Form>
 )
 ```
+
+#### Props
+Name | Description | Default | Type
+------|-------------|----------|-----------
+onSubmit | Function that return values by object | undefined | function
+initValues | object of initial values of form | undefined | object
+
+#### Methods
+Name | Description | Return type
+------|-------------|----------|-----------
+submit() | Method to trigger "onSubmit" function | none
 
 ### Functions
 - **_normalize_** - is a function which normalizes the font size of the text relative to the screen size.

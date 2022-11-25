@@ -362,14 +362,70 @@ useRefreshControl | if true used RefreshControll component to FlatList | true | 
 emptyComponenText | Default ListEmptyComponent text | "There is nothing here" | string
 and all FlatList component props |  |  | any
 
+- **_Picker_** - Picker component like drop down menu.
+
+```javascript
+import { UI } from 'tit-ui'
+
+return (
+    <UI.Picker
+        data={["JavaScript", "Pyton", "C++", "C#", "Ruby", "Swift", "Go"]}
+        label='Language'
+        containerStyle={{ marginBottom: 12 }}
+    />
+)
+```
+<img width="35%" src="./gifs/picker.gif"/>
+
+#### Props
+Name | Description | Default | Type
+------|-------------|----------|-----------
+containerStyle | style of component container | {} | object
+pickerStyle | style of picker container | {} | object
+labelStyle | style of label component on top of picker that based on React-Native Text component | {} | object
+noteStyle | style of note component on bottom of picker that based on React-Native Text component | {} | object
+textStyle | style of picker value text, based on React-Native Text component | {} | object
+placeholderTextColor | placeholder text color, like React-Native TextInput component placeholderTextColor prop | "gray" | string
+value | value of picker - selected item of data array | undefined | string or object
+onPick | callback when picker item is selected. (value) => { ... } | undefined | function
+data | array of values. Can be array of string (["1", "2", "3"]) or array of object ([{value: 1, label: "One"}, {value: 2, label: "Two"}]). Object must have a "value" and "label" | [] | array of string or array of object
+placeholder | text showing when value is empty | "Pick something" | string
+label | text of label on top of picker | "" | string
+note | text of label on top of picker | "" | string
+initValue | initial value of picker. Can be string of object. Object must have a "value" and "label" | "" | string or object
+onOpen | callback on picker opened | undefined | function
+onClose | callback on picker opened | undefined | function
+Left | component that will render on left side of picker | null | React Component
+Right | component that will render on right side of picker | null | React Component
+listProps | props of list of data. Based on React-Native VirtualizedList component | {} | object
+
+#### listProps
+Name | Description | Default | Type
+------|-------------|----------|-----------
+itemStyle | style of list item. Based on React-Native Text component | {} | object
+selectedItemStyle | style of selected list item. Based on React-Native Text component | {} | object
+renderItem | callback that must return some component to render. ({ item, index, selected, pickItem }) => {...} | undefined | function
+emptyText | text when data array is empty | 'There is nothing here' | string
+
+#### Methods
+Name | Description | Return type
+------|-------------|----------
+value | value of radio button | bool
+setValue() | seting value | none
+clear: | function to clear picker value | undefined | function
+open: | function to open picker | undefined | function
+close: | function to close picker | undefined | function
+
 ### Form
 Form is wrapper component that can return all named components value like web forms. Working with UI components of this library. If you can use web forms you know how to use this Form. All you need is:
 
-1. **Name your components** - Provide a "name" props to component you want to take a value. This name will be key in returned result object
+1. **Name your components** - Provide a "name" props to component you want to take a value. This name will be key in returned result data object.
 
-2. **Mark your trigger** - Provide a "type" props with string "submit" value to mark trigger. All pressable component can be a trigger. Form put "onSubmit" function into "onPress" props of it. And when trigger pressed values will pass to "onSubmit" function arguments.
+2. **Mark your required components** - Provide a "required" props to component you want to make it required. If required component doesn't filled submit function will return error object in result.
 
-3. **Provide a "onSubmit" function** - Provide a function in "onSubmit" props of Form compoent.
+3. **Mark your trigger** - Provide a "type" props with string "submit" value to mark trigger. All pressable component can be a trigger. Form put "onSubmit" function into "onPress" props of it. And when trigger pressed values will pass to "onSubmit" function arguments.
+
+4. **Provide a "onSubmit" function** - Provide a function in "onSubmit" props of Form compoent.
 
 Thats it! Your form is ready. If you want to use your own component in Form, you should modify your component like [this](../main/examples/how%20to%20use%20your%20own%20components%20in%20Form.md).
 
@@ -379,8 +435,13 @@ import { Form, UI } from 'tit-ui'
 return (
     <Form
         onSubmit={(result) => { //onSubmit function
-            console.log("result", result)
-            alert(JSON.stringify(result))
+            const { data, errors } = result // result contains "data" and "errors"
+            if (data) { //data will be "null" if form get errors
+                console.log("data", data)
+            }
+            if (errors) {
+                console.log("errors", errors)
+            }
         }}
         initValues={{
             name: "Tit",
@@ -408,6 +469,13 @@ return (
             containerStyle={{ marginBottom: 12 }}
             name='pass' //this name prop 
         />
+        <UI.Picker
+            data={["JavaScript", "Pyton", "C++", "C#", "Ruby", "Swift", "Go"]}
+            label='Language'
+            containerStyle={{ marginBottom: 12 }}
+            placeholder='Select your favorite'
+            required // this is required prop
+        />
         <UI.Radio
             name='check-box' //this name prop 
             title='need your submition'
@@ -431,7 +499,7 @@ return (
 #### Props
 Name | Description | Default | Type
 ------|-------------|----------|-----------
-onSubmit | Function that return values by object | undefined | function
+onSubmit | Function that return values and errors by object ({data, errors}) => {...} | undefined | function
 initValues | object of initial values of form | undefined | object
 
 #### Methods
@@ -506,3 +574,22 @@ return (
 ```
 
 <img width="35%" src="./images/hexToRgb.png"/>
+
+- **_measure_** - is a async function that can return width ,height, x and y positons in window by component ref.
+
+```javascript
+import { Functions } from 'tit-ui'
+//...
+
+const viewRef = useRef()
+
+const getMeasure = async () => {
+    const { x, y, width, height } = await measure(viewRef.current) // return width, height and position in window(x,y)
+}
+
+return (
+    <View ref={viewRef}>
+        ...
+    </View>
+)
+```

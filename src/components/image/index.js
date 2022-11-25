@@ -96,7 +96,7 @@ const Image = ({
     }, [onLoadEnd, setLoading])
 
     const _onError = useCallback((e) => {
-        onLoadEnd(e)
+        onError(e)
         setLoading(false)
         setSource({ uri: '' })
     }, [onError, setLoading, setSource])
@@ -154,8 +154,7 @@ const Image = ({
 const styles = StyleSheet.create({
     container: {
         width: '100%',
-        overflow: 'hidden',
-        zIndex: 2
+        overflow: 'hidden'
     },
     loading: {
         ...StyleSheet.absoluteFillObject,

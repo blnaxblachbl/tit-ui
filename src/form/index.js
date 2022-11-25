@@ -10,19 +10,28 @@ const Form = forwardRef(({
     onSubmit = () => { },
     initValues
 }, formRef) => {
-    const refs = useRef(new Map()).current
+    const nodes = useRef(new Map()).current
 
-    const submit = () => {
-        const result = {}
-        const keys = [...refs.keys()]
+    const submit = useCallback(() => {
+        let data = {}
+        let errors = {}
+        const keys = [...nodes.keys()]
         keys.forEach(key => {
-            const ref = refs.get(key)
-            if (ref) {
-                result[key] = ref.value
+            const node = nodes.get(key)
+            if (node) {
+                const { ref, props } = node
+                data[key] = ref.value
+                if (props.required && !ref.value) {
+                    errors[key] = `${key} is required`
+                }
             }
         })
-        onSubmit(result)
-    }
+        const getErrors = Object.keys(errors).length > 0
+        onSubmit({
+            data: getErrors ? null : data,
+            errors: getErrors ? errors : null
+        })
+    }, [onSubmit, nodes])
 
     const renderChild = useCallback((child) => {
         if (isValidElement(child)) {
@@ -31,12 +40,22 @@ const Form = forwardRef(({
                 let initValue = undefined
                 if (initValues) {
                     const value = initValues[key]
-                    if (value){
+                    if (value) {
                         initValue = value
                     }
                 }
                 const Child = forwardRef((props, ref) => cloneElement(child, { ...props, initValue, ref }))
-                return <Child key={key} ref={r => refs.set(key, r)} />
+                return (
+                    <Child
+                        key={key}
+                        ref={r => {
+                            if (child.ref) {
+                                child.ref(r)
+                            }
+                            nodes.set(key, { ref: r, props: child.props })
+                        }}
+                    />
+                )
             }
             if (child.props.type && child.props.type === 'submit') {
                 return cloneElement(child, { ...child.props, onPress: submit }, child.props.children)
@@ -57,7 +76,7 @@ const Form = forwardRef(({
 
     useImperativeHandle(formRef, () => ({
         submit
-    }), [])
+    }), [submit])
 
     return (
         <View style={[styles.container, style]}>

@@ -106,11 +106,11 @@ const styles = StyleSheet.create({
         width: '100%',
         borderRadius: 6,
         paddingHorizontal: normalize(12),
-        backgroundColor: "#F5F5F5",
+        backgroundColor: "#fff",
         height: normalize(42),
         flexDirection: 'row',
         borderWidth: 1,
-        borderColor: '#3c4043'
+        borderColor: '#A9A9A9',
     },
     input: {
         flex: 1,

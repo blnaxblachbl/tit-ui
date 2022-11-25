@@ -6,6 +6,7 @@ import Avatar from './avatar'
 import Badge from "./badge"
 import Radio from './radioButton'
 import Switch from './switch'
+import Picker from './picker'
 
 export default {
     Input,
@@ -15,5 +16,6 @@ export default {
     Avatar,
     Badge,
     Radio,
-    Switch
+    Switch,
+    Picker
 }

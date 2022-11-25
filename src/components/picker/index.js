@@ -54,7 +54,10 @@ const Picker = forwardRef((
         onClose = () => { },
         Left = null,
         Right = null,
-        listProps = {}
+        listProps = {},
+        required = false,
+        requiredTextStyle,
+        requiredText = '*',
     },
     ref
 ) => {
@@ -62,13 +65,6 @@ const Picker = forwardRef((
     const [text, setText] = useState(initValue)
     const [visible, setVisble] = useState(false)
     const [reverse, setReverse] = useState(false)
-
-    // const measure = useCallback((key) => {
-    //     const item = refs.get(key)
-    //     return new Promise(resolve => item.measureInWindow((x, y, width, height) => resolve({
-    //         x, y, width, height
-    //     })))
-    // }, [refs])
 
     const _value = useMemo(() => value || text, [text, value])
     const _textStyle = useMemo(() => [styles.value, textStyle], [textStyle])
@@ -123,7 +119,7 @@ const Picker = forwardRef((
 
     return (
         <View style={[styles.container, containerStyle]}>
-            {label && <Text style={[styles.label, labelStyle]}>{label}</Text>}
+            {label && <Text style={[styles.label, labelStyle]}>{label}{required && <Text style={[styles.required, requiredTextStyle]}>{requiredText}</Text>}</Text>}
             <TouchableNativeFeedback onPress={openPicker}>
                 <View ref={r => refs.set("picker", r)} style={[styles.picker, pickerStyle]}>
                     {Left}
@@ -264,5 +260,10 @@ const styles = StyleSheet.create({
     selectedItem: {
         backgroundColor: hexToRgba("#4666ff", 0.2),
         fontWeight: "bold"
+    },
+    required: {
+        fontSize: 12,
+        color: 'red',
+        letterSpacing: 3
     }
 })

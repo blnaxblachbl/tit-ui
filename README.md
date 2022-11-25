@@ -89,7 +89,7 @@ Name | Description | Return type
 value | value of switch | bool
 setValue() | seting value | none
 
-- **_TextInput_** - is UI component of text input. 
+- **_Input_** - is UI component of text input. 
 
 ```javascript
 //...
@@ -126,6 +126,9 @@ focusedBorderColor | input container border color when TextInput is focused | "#
 focusedLabelColor | label text color when TextInput is focused | "#4666ff" | string
 Left | component that will render on left side of input | null | React Component
 Right | component that will render on right side of input | null | React Component
+required | boolean prop that let Form component to know that this input is required, also add "requiredText" to label | false | boolean
+requiredText | label additation when input is required | * | string
+requiredTextStyle | style of "requiredText". Based on React-Native Text component | {} | object 
 and all TextInput component props |  |  | any
 
 #### Methods
@@ -398,6 +401,9 @@ onClose | callback on picker opened | undefined | function
 Left | component that will render on left side of picker | null | React Component
 Right | component that will render on right side of picker | null | React Component
 listProps | props of list of data. Based on React-Native VirtualizedList component | {} | object
+required | boolean prop that let Form component to know that this picker is required, also add "requiredText" to label | false | boolean
+requiredText | label additation when picker is required | * | string
+requiredTextStyle | style of "requiredText". Based on React-Native Text component | {} | object 
 
 #### listProps
 Name | Description | Default | Type
@@ -412,9 +418,9 @@ Name | Description | Return type
 ------|-------------|----------
 value | value of radio button | bool
 setValue() | seting value | none
-clear: | function to clear picker value | undefined | function
-open: | function to open picker | undefined | function
-close: | function to close picker | undefined | function
+clear | function to clear picker value | undefined | function
+open | function to open picker | undefined | function
+close | function to close picker | undefined | function
 
 ### Form
 Form is wrapper component that can return all named components value like web forms. Working with UI components of this library. If you can use web forms you know how to use this Form. All you need is:

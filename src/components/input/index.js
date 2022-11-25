@@ -24,6 +24,9 @@ const Input = forwardRef(({
     focusedBorderColor = "#4666ff",
     focusedLabelColor = "#4666ff",
     initValue = '',
+    required = false,
+    requiredTextStyle,
+    requiredText = '*',
     ...props
 }, ref) => {
     const refs = useRef(new Map()).current
@@ -78,7 +81,7 @@ const Input = forwardRef(({
 
     return (
         <View style={_containerStyle}>
-            {label && <Text ref={r => refs.set("label", r)} style={_labelStyle}>{label}</Text>}
+            {label && <Text ref={r => refs.set("label", r)} style={_labelStyle}>{label}{required && <Text style={[styles.required, requiredTextStyle]}>{requiredText}</Text>}</Text>}
             <View ref={r => refs.set("input-container", r)} style={_inputContainerStyle}>
                 {Left}
                 <TextInput
@@ -128,6 +131,11 @@ const styles = StyleSheet.create({
         fontSize: normalize(12),
         color: '#3c4043',
         width: '100%'
+    },
+    required: {
+        fontSize: 12,
+        color: 'red',
+        letterSpacing: 3
     }
 })
 

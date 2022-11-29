@@ -114,11 +114,12 @@ const Picker = forwardRef((
         setValue: setText,
         clear: () => setText(undefined),
         open: openPicker,
-        close: closePicker
-    }), [_value])
+        close: closePicker,
+        containerRef: refs.get("picker"),
+    }), [_value, refs])
 
     return (
-        <View style={[styles.container, containerStyle]}>
+        <View ref={r => refs.set("container", r)} style={[styles.container, containerStyle]}>
             {label && <Text style={[styles.label, labelStyle]}>{label}{required && <Text style={[styles.required, requiredTextStyle]}>{requiredText}</Text>}</Text>}
             <TouchableNativeFeedback onPress={openPicker}>
                 <View ref={r => refs.set("picker", r)} style={[styles.picker, pickerStyle]}>

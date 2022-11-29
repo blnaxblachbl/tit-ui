@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, forwardRef, useCallback, useImperativeHandle } from 'react'
+import React, { useState, useEffect, useMemo, forwardRef, useCallback, useImperativeHandle, useRef } from 'react'
 import {
     LayoutAnimation,
     Platform,
@@ -25,6 +25,7 @@ const Switch = forwardRef(({
     initValue = false,
     value
 }, ref) => {
+    const refs = useRef(new Map()).current
     const [active, setActive] = useState(initValue)
 
     const _value = useMemo(() => typeof value === 'boolean' ? value : active, [active, value])
@@ -50,12 +51,14 @@ const Switch = forwardRef(({
 
     useImperativeHandle(ref, () => ({
         value: _value,
-        setValue: setActive
-    }), [_value])
+        setValue: setActive,
+        containerRef: refs.get("container")
+    }), [_value, refs])
 
     return (
         <TouchableWithoutFeedback onPress={toggleSwitch}>
             <View
+                ref={r => refs.set("container", r)}
                 style={[
                     styles.switchContainerStyle,
                     {

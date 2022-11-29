@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React, { forwardRef, useMemo } from 'react'
 import {
     View,
     StyleSheet,
@@ -6,6 +6,34 @@ import {
 } from 'react-native'
 
 import { normalize } from '../../functions/normalize'
+
+const Badge = forwardRef(({
+    style,
+    textStyle,
+    badge = 0
+}, ref) => {
+    const _badge = useMemo(() => {
+        if (typeof (badge) == "number") {
+            return badge > 99 ? "99+" : badge
+        }
+        if (typeof (badge) === 'string') {
+            return badge
+        }
+        return null
+    }, [badge])
+
+    if (!_badge) {
+        return null
+    }
+
+    return (
+        <View ref={ref} style={[styles.badge, style]}>
+            <Text numberOfLines={1} style={[styles.badgeText, textStyle]}>{_badge}</Text>
+        </View>
+    )
+})
+
+export default Badge
 
 const styles = StyleSheet.create({
     badge: {
@@ -24,31 +52,3 @@ const styles = StyleSheet.create({
         maxWidth: 70
     }
 })
-
-const Badge = ({
-    style,
-    textStyle,
-    badge = 0
-}) => {
-    const _badge = useMemo(() => {
-        if (typeof (badge) == "number") {
-            return badge > 99 ? "99+" : badge
-        }
-        if (typeof (badge) === 'string') {
-            return badge
-        }
-        return null
-    }, [badge])
-
-    if (!_badge) {
-        return null
-    }
-
-    return (
-        <View style={[styles.badge, style]}>
-            <Text numberOfLines={1} style={[styles.badgeText, textStyle]}>{_badge}</Text>
-        </View>
-    )
-}
-
-export default Badge

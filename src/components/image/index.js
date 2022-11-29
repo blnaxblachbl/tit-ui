@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useRef, useState } from "react"
+import React, { forwardRef, useCallback, useMemo, useRef, useState } from "react"
 import {
     Image as RNImage,
     View,
@@ -17,7 +17,7 @@ const pointsDistance = ([xA, yA], [xB, yB]) => {
     )
 }
 
-const Image = ({
+const Image = forwardRef(({
     source = { uri: '' },
     canScale = false,
     showLoading = true,
@@ -32,7 +32,7 @@ const Image = ({
     onLoadEnd = () => { },
     onError = () => { },
     ...props
-}) => {
+}, ref) => {
     const pan = useRef(new Animated.ValueXY({ x: 0, y: 0 })).current
     const scale = useRef(new Animated.Value(1)).current
     let offsetDistance = 0
@@ -129,6 +129,7 @@ const Image = ({
             style={_containerStyle}
         >
             <RNImage
+                ref={ref}
                 source={_source}
                 onLoadStart={_onLoadStart}
                 onLoadEnd={_onLoadEnd}
@@ -149,7 +150,7 @@ const Image = ({
             }
         </Animated.View>
     )
-}
+})
 
 const styles = StyleSheet.create({
     container: {

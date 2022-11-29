@@ -1,4 +1,4 @@
-import React, { forwardRef, useCallback, useImperativeHandle, useMemo, useState } from 'react'
+import React, { forwardRef, useCallback, useImperativeHandle, useMemo, useRef, useState } from 'react'
 import {
     View,
     StyleSheet,
@@ -19,6 +19,7 @@ const RadioButton = forwardRef(({
     inactiveColor = "#494043",
     initValue = false,
 }, ref) => {
+    const refs = useRef(new Map()).current
     const [innerValue, setInnerValue] = useState(initValue)
 
     const _value = useMemo(() => typeof value === 'boolean' ? value : innerValue, [innerValue, value])
@@ -53,14 +54,15 @@ const RadioButton = forwardRef(({
 
     useImperativeHandle(ref, () => ({
         value: _value,
-        setValue: setInnerValue
-    }), [_value])
+        setValue: setInnerValue,
+        containerRef: refs.get("container")
+    }), [_value, refs])
 
     return (
         <TouchableWithoutFeedback
             onPress={_onPress}
         >
-            <View style={[styles.container, containerStyle]}>
+            <View ref={r => refs.set("container", r)} style={[styles.container, containerStyle]}>
                 <View style={_circleStyle}>
                     {
                         _value ? (

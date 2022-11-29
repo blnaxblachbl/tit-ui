@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import React, { forwardRef, useCallback } from 'react'
 import {
     View,
     StyleSheet,
@@ -10,7 +10,7 @@ import {
 import Badge from '../badge'
 import { normalize } from '../../functions/normalize'
 
-const Avatar = ({
+const Avatar = forwardRef(({
     source,
     nameString = "",
     onPress = () => { },
@@ -22,7 +22,7 @@ const Avatar = ({
     badgeTextStyle,
     imageProps,
     letterStyle
-}) => {
+}, ref) => {
 
     const renderImage = useCallback(() => {
         let letters = ['N', 'A']
@@ -52,6 +52,7 @@ const Avatar = ({
 
     return (
         <TouchableOpacity
+            ref={ref}
             onPress={onPress}
             activeOpacity={1}
             style={[styles.container, style]}
@@ -64,7 +65,7 @@ const Avatar = ({
             />
         </TouchableOpacity>
     )
-}
+})
 
 const styles = StyleSheet.create({
     container: {

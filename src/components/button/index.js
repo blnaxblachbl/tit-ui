@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React, { forwardRef, useMemo } from 'react'
 import {
     TouchableWithoutFeedback,
     StyleSheet,
@@ -9,7 +9,7 @@ import {
 
 import { normalize } from '../../functions/normalize'
 
-const Button = ({
+const Button = forwardRef(({
     style,
     onPress = () => { },
     text = "Button",
@@ -17,7 +17,7 @@ const Button = ({
     textStyle,
     loadingColor = "#ffffff",
     children
-}) => {
+}, ref) => {
 
     const _containerStyle = useMemo(() => ([styles.container, style]), [style])
     const _textStyle = useMemo(() => ([styles.text, textStyle]), [textStyle])
@@ -30,7 +30,7 @@ const Button = ({
 
     return (
         <TouchableWithoutFeedback onPress={hundlePress}>
-            <View style={_containerStyle} >
+            <View ref={ref} style={_containerStyle} >
                 {
                     loading ? (
                         <ActivityIndicator
@@ -43,7 +43,7 @@ const Button = ({
             </View>
         </TouchableWithoutFeedback>
     )
-}
+})
 
 export default Button
 

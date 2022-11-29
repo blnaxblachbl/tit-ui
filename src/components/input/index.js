@@ -74,13 +74,14 @@ const Input = forwardRef(({
 
     useImperativeHandle(ref, () => ({
         inputRef: refs.get("input"),
+        containerRef: refs.get("input-container"),
         focused,
         value: _value,
         setValue: setValue
     }), [refs, focused, _value])
 
     return (
-        <View style={_containerStyle}>
+        <View ref={r => refs.set("container", r)} style={_containerStyle}>
             {label && <Text ref={r => refs.set("label", r)} style={_labelStyle}>{label}{required && <Text style={[styles.required, requiredTextStyle]}>{requiredText}</Text>}</Text>}
             <View ref={r => refs.set("input-container", r)} style={_inputContainerStyle}>
                 {Left}

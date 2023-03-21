@@ -2,17 +2,22 @@
   "name": "tit-ui",
   "version": "0.1.2",
   "description": "ui lib for react-native",
-  "main": "index.js",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "lib/**/*"
+  ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npx tsc --project ./tsconfig.json"
   },
   "devDependencies": {
-    "react": "*",
-    "react-native": "*"
-  },
-  "peerDependencies": {
-    "react": "*",
-    "react-native": "*"
+    "@tsconfig/react-native": "^2.0.3",
+    "@types/jest": "^29.2.4",
+    "@types/react": "^18.0.26",
+    "@types/react-native": "^0.70.8",
+    "@types/react-test-renderer": "^18.0.0",
+    "typescript": "^4.9.4"
   },
   "repository": {
     "type": "git",

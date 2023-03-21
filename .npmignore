@@ -3,3 +3,6 @@
 
 #ignore gifs
 /gifs
+
+#ignore src
+/src

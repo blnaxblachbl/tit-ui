@@ -537,32 +537,6 @@ const styles = StyleSheet.create({
 });
 ```
 
-- **_wordsFromUpperCase_** - is a regex function that replace words first lower case character to upper.
-
-```javascript
-import { Functions } from 'tit-ui'
-
-//...
-
-return (
-    <View style={styles.container}>
-        <Text style={{ fontSize: 14, color: "#000000" }}>{"some text without upper case"}</Text>
-        <Text style={{ fontSize: 14, color: "#000000" }}>{Functions.wordsFromUpperCase("some text without upper case")}</Text>
-    </View>
-);
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#F5FCFF',
-    },
-});
-```
-
-<img width="35%" src="./images/wordsFromUpperCase.jpg"/>
-
 - **_hexToRgba_** - is a function that can convert color hex value to rgb or rgba.
 
 ```javascript

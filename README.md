@@ -87,7 +87,7 @@ onChangeState | callback when switch is clicked| (value) => {callback(value)} | 
 Name | Description | Return type
 ------|-------------|----------
 value | value of switch | bool
-setValue() | seting value | none
+setValue() | setting value | none
 
 - **_Input_** - is UI component of text input. 
 
@@ -137,7 +137,7 @@ Name | Description | Return type
 inputRef | reference of TextInput | React-Native reference
 focused | true if TextInput focused and false if not | bool
 value | value of TextInput | string
-setValue() | seting value | none
+setValue() | setting value | none
 
 - **_Button_** - is UI component of button.
 
@@ -215,7 +215,7 @@ initValue | initial value of button | false | bool
 Name | Description | Return type
 ------|-------------|----------
 value | value of radio button | bool
-setValue() | seting value | none
+setValue() | setting value | none
 
 - **_Avatar_** - is UI component of image for lists to profile screens.
 
@@ -293,8 +293,8 @@ letterStyle | style of letters of nameString when imageUrl is empty | {} | style
 Name | Description | Default | Type
 ------|-------------|----------|-----------
 badge | used if you need to render badge on avatar | 0 | number
-style | style of the component container | object | style
-textStyle | style of the badge value | object | style
+style | style of the component container | undefined | style
+textStyle | style of the badge value | undefined | style
 
 - **_Image_** - Image component with scale.
 
@@ -417,10 +417,59 @@ emptyText | text when data array is empty | 'There is nothing here' | string
 Name | Description | Return type
 ------|-------------|----------
 value | value of radio button | bool
-setValue() | seting value | none
-clear | function to clear picker value | undefined | function
-open | function to open picker | undefined | function
-close | function to close picker | undefined | function
+setValue() | setting value | none
+clear() | function to clear picker value | undefined | function
+open() | function to open picker | undefined | function
+close() | function to close picker | undefined | function
+
+- **_Slider_** - Slider component to select single value from a range of values.
+
+```javascript
+    const refs = useRef(new Map()).current;
+    const [sliderValue, setSliderValue] = useState(-100);
+
+    return (
+        <>
+            <Slider
+                ref={r => refs.set('slider', r)}
+                onValueChange={value => {
+                    setSliderValue(value);
+                }}
+                minValue={-100}
+                maxValue={100}
+                style={{marginVertical: 50}}
+            />
+            <UI.Button
+                text="Set random value"
+                onPress={() => {
+                    const randomValue = Math.floor(Math.random() * (100 - -100) + -100);
+                    refs.get('slider').setValue(randomValue);
+                }}
+            />
+        </>
+    )
+```
+<img width="35%" src="./gifs/slider.gif"/>
+
+#### Props
+Name | Description | Default | Type
+------|-------------|----------|-----------
+minValue | initial minimum value of the slider | 0 | number
+maxValue | maximum value of slider | 100 | number
+style | style of the component container | undefined | style
+trackStyle | style of slider track line | undefined | style
+circleStyle | style of circle on track | undefined | style
+circleSize | size of circle | 30 | number
+circleIsScale | boolean props to enable or disable circle scale on press | true | boolean
+circleMaxScale | circle scale value | 1.3 | float
+CustomCircle | component that will render instead of default circle | null | React Component
+onValueChange | callback when slider value changed | (value) => {callback(value)} | func
+
+#### Methods
+Name | Description | Return type
+------|-------------|----------
+value | value of slider | number
+setValue() | setting value | none
 
 ### Form
 Form is wrapper component that can return all named components value like web forms. Working with UI components of this library. If you can use web forms you know how to use this Form. All you need is:

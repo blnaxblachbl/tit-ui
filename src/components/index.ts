@@ -7,6 +7,7 @@ import Badge from "./badge";
 import Radio from "./radioButton";
 import Switch from "./switch";
 import Picker from "./picker";
+import Slider from "./slider";
 
 export default {
   Input,
@@ -18,4 +19,5 @@ export default {
   Radio,
   Switch,
   Picker,
+  Slider,
 };

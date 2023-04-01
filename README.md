@@ -430,6 +430,7 @@ close() | function to close picker | undefined | function
 
     return (
         <>
+            <Text>Slider value: {sliderValue}</Text>
             <Slider
                 ref={r => refs.set('slider', r)}
                 onValueChange={value => {

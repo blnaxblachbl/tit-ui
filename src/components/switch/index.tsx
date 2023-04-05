@@ -21,28 +21,8 @@ import {
   TextStyle,
 } from "react-native";
 
-import { normalize } from "../../functions/normalize";
-
-export type SwitchProps = {
-  containerStyle?: StyleProp<ViewStyle>;
-  circleStyle?: StyleProp<ViewStyle>;
-  textStyle?: StyleProp<TextStyle>;
-  enabledCircleColor?: string;
-  disabledCircleColor?: string;
-  enabledBackgroundColor?: string;
-  disabledBackgroundColor?: string;
-  enabledText?: string;
-  disabledText?: string;
-  onChangeState?: (value: boolean) => void;
-  initValue?: boolean;
-  value?: boolean;
-};
-
-export type SwitchHandler = {
-  value: boolean;
-  setValue: (value: boolean) => void;
-  containerRef: RefObject<View>;
-};
+import { styles } from "./styles";
+import { SwitchHandler, SwitchProps } from "./types";
 
 const Switch = forwardRef<SwitchHandler, SwitchProps>(
   (
@@ -146,25 +126,3 @@ const Switch = forwardRef<SwitchHandler, SwitchProps>(
 );
 
 export default Switch;
-
-const styles = StyleSheet.create({
-  switchContainerStyle: {
-    width: 55,
-    borderRadius: 25,
-    padding: 4,
-    justifyContent: "center",
-  },
-  switchCircleStyle: {
-    width: 22,
-    height: 22,
-    borderRadius: 11,
-    backgroundColor: "#fff", // rgb(102,134,205)
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  switchTextStyle: {
-    color: "#000",
-    fontSize: normalize(14),
-    fontWeight: "bold",
-  },
-});

@@ -8,6 +8,7 @@ import Radio from "./radioButton";
 import Switch from "./switch";
 import Picker from "./picker";
 import Slider from "./slider";
+import Tag from "./tag";
 
 export default {
   Input,
@@ -20,4 +21,5 @@ export default {
   Switch,
   Picker,
   Slider,
+  Tag
 };

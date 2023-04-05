@@ -1,27 +1,14 @@
-import React, { forwardRef, ReactNode, useMemo } from "react";
+import React, { forwardRef, useMemo } from "react";
 import {
   TouchableWithoutFeedback,
-  StyleSheet,
   Text,
   ActivityIndicator,
   View,
-  StyleProp,
-  ViewStyle,
-  TextStyle,
   GestureResponderEvent,
 } from "react-native";
 
-import { normalize } from "../../functions/normalize";
-
-export type ButtonProps = {
-  style?: StyleProp<ViewStyle>;
-  onPress?: (event: GestureResponderEvent) => void;
-  text?: string;
-  loading?: boolean;
-  textStyle?: StyleProp<TextStyle>;
-  loadingColor?: string;
-  children?: ReactNode;
-};
+import { styles } from "./styles";
+import { ButtonProps } from "./types";
 
 const Button = forwardRef<View, ButtonProps>(
   (
@@ -68,18 +55,3 @@ const Button = forwardRef<View, ButtonProps>(
 );
 
 export default Button;
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: "#4666ff",
-    borderRadius: 6,
-    alignItems: "center",
-    justifyContent: "center",
-    width: "100%",
-    paddingHorizontal: 12,
-    height: normalize(42),
-  },
-  text: {
-    color: "#FFFFFF",
-  },
-});

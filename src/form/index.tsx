@@ -8,20 +8,10 @@ import {
   useImperativeHandle,
   ReactNode,
 } from "react";
-import { View, StyleSheet, StyleProp, ViewStyle } from "react-native";
+import { View } from "react-native";
 
-type AnyObject = { [name: string]: any };
-
-export type FormProps = {
-  children: ReactNode;
-  style?: StyleProp<ViewStyle>;
-  onSubmit: (args: { data: object | null; errors: object | null }) => void;
-  initValues: AnyObject | undefined;
-};
-
-export type FormHandler = {
-  submit: () => void;
-};
+import { styles } from "./styles";
+import { AnyObject, FormHandler, FormProps } from "./types";
 
 const Form = forwardRef<FormHandler, FormProps>(
   ({ children, style, onSubmit = () => {}, initValues }, formRef) => {
@@ -114,11 +104,5 @@ const Form = forwardRef<FormHandler, FormProps>(
     );
   }
 );
-
-const styles = StyleSheet.create({
-  container: {
-    width: "100%",
-  },
-});
 
 export default Form;

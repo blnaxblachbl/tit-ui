@@ -5,85 +5,28 @@ import {
   useMemo,
   useRef,
   useCallback,
-  ReactNode,
-  RefObject,
 } from "react";
 import {
   View,
-  StyleSheet,
   TouchableNativeFeedback,
   Modal,
   Text,
   Dimensions,
   VirtualizedList,
-  StyleProp,
-  ViewStyle,
-  TextStyle,
-  ListRenderItemInfo,
-  VirtualizedListProps,
 } from "react-native";
 
 import { normalize } from "../../functions/normalize";
-import { hexToRgba } from "../../functions/hexToRgba";
 import { measure } from "../../functions/measure";
+import { styles } from "./styles";
+import {
+  Data,
+  PickerHandler,
+  PickerProps,
+  ListProps,
+  TListRenderItem,
+} from "./types";
 
 const { height } = Dimensions.get("window");
-
-type DataObject = {
-  value: string;
-  title: string;
-};
-
-type Modify<T, R> = Omit<T, keyof R> & R;
-
-type Data = DataObject | string;
-
-interface renderItem extends ListRenderItemInfo<Data> {
-  selected?: boolean;
-  onPick?: (data: Data) => void;
-}
-
-interface ListProps extends Modify<VirtualizedListProps<Data>, renderItem> {
-  pickItem: (data: Data) => void;
-  reverse?: boolean;
-  _value?: Data;
-  selectedItemStyle?: StyleProp<TextStyle>;
-  emptyText?: string;
-  itemStyle?: StyleProp<TextStyle>;
-}
-
-export type PickerProps = {
-  containerStyle?: StyleProp<ViewStyle>;
-  pickerStyle?: StyleProp<ViewStyle>;
-  labelStyle?: StyleProp<TextStyle>;
-  noteStyle?: StyleProp<TextStyle>;
-  textStyle?: StyleProp<TextStyle>;
-  placeholderTextColor?: string;
-  value?: Data;
-  onPick?: (data: Data) => void;
-  data?: any[];
-  placeholder?: string;
-  label?: string;
-  initValue?: Data;
-  note?: string;
-  onOpen?: () => void;
-  onClose?: () => void;
-  Left?: ReactNode;
-  Right?: ReactNode;
-  listProps?: any;
-  required?: boolean;
-  requiredTextStyle?: StyleProp<TextStyle>;
-  requiredText?: string;
-};
-
-export type PickerHandler = {
-  value: Data;
-  setValue: (value: Data) => void;
-  clear: () => void;
-  open: () => void;
-  close: () => void;
-  containerRef: RefObject<View>;
-};
 
 const getValue = (data: Data | undefined) => {
   if (typeof data === "string") {
@@ -282,10 +225,10 @@ const List = forwardRef<VirtualizedList<Data>, ListProps>(
     },
     ref
   ) => {
-    const _renderImtem = ({ item, index, ...data }: renderItem) => {
+    const _renderImtem = ({ item, index, ...data }: TListRenderItem) => {
       const selected = getValue(item) === getValue(_value);
       if (renderItem) {
-        return renderItem({ item, index, ...data } as renderItem);
+        return renderItem({ item, index, ...data } as TListRenderItem);
       }
       let selectedStyle = undefined;
       if (selected) {
@@ -325,64 +268,3 @@ const List = forwardRef<VirtualizedList<Data>, ListProps>(
 );
 
 export default Picker;
-
-const styles = StyleSheet.create({
-  container: {
-    width: "100%",
-  },
-  picker: {
-    width: "100%",
-    flexDirection: "row",
-    borderRadius: 6,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    borderWidth: 1,
-    borderColor: "#A9A9A9",
-    height: normalize(42),
-  },
-  label: {
-    marginBottom: 6,
-    fontSize: normalize(12),
-    fontWeight: "bold",
-    color: "#3c4043",
-    width: "100%",
-  },
-  note: {
-    fontSize: normalize(12),
-    color: "#3c4043",
-    width: "100%",
-  },
-  list: {
-    width: "100%",
-    maxHeight: 200,
-    position: "absolute",
-    opacity: 0,
-    borderWidth: 1,
-    borderColor: "#A9A9A9",
-    borderRadius: 6,
-    backgroundColor: "#fff",
-    overflow: "hidden",
-  },
-  listContainer: {
-    alignItems: "stretch",
-  },
-  value: {
-    flex: 1,
-    color: "#000",
-    paddingHorizontal: normalize(12),
-  },
-  listItemText: {
-    minHeight: normalize(42),
-    textAlignVertical: "center",
-    paddingHorizontal: normalize(12),
-  },
-  selectedItem: {
-    backgroundColor: hexToRgba("#4666ff", 0.2),
-    fontWeight: "bold",
-  },
-  required: {
-    fontSize: 12,
-    color: "red",
-    letterSpacing: 3,
-  },
-});

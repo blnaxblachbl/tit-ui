@@ -1,14 +1,13 @@
 import { View } from "react-native";
 
-type Item = View;
-type Restult = {
+export type Restult = {
   x: number;
   y: number;
   width: number;
   height: number;
 };
 
-export const measure = (view: Item): Promise<Restult> => {
+export const measure = (view: View): Promise<Restult> => {
   return new Promise((resolve, reject) => {
     if (!view) {
       reject(new Error("ref current not provided"));

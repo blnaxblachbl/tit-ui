@@ -425,6 +425,8 @@ close() | function to close picker | undefined | function
 - **_Slider_** - Slider component to select single value from a range of values.
 
 ```javascript
+    import { UI } from 'tit-ui'
+    //...
     const refs = useRef(new Map()).current;
     const [sliderValue, setSliderValue] = useState(-100);
 
@@ -471,6 +473,46 @@ Name | Description | Return type
 ------|-------------|----------
 value | value of slider | number
 setValue() | setting value | none
+
+- **_Tag_** - Tag for markup.
+
+```javascript
+    import { UI } from 'tit-ui'
+    //...
+    return (
+        <View
+            style={{
+                flexWrap: 'wrap',
+                flexDirection: 'row',
+                justifyContent: 'center',
+            }}
+        >
+            <UI.Tag text="default" />
+            <UI.Tag text="red" color="red" />
+            <UI.Tag text="orange" color="orange" />
+            <UI.Tag text="lime" color="lime" />
+            <UI.Tag text="yellow" color="yellow" />
+            <UI.Tag text="green" color="green" />
+            <UI.Tag text="blue" color="blue" />
+            <UI.Tag text="purple" color="purple" />
+        </View>
+    )
+```
+<img width="35%" src="./images/tag.jpg"/>
+<img width="35%" src="./gifs/tag.gif"/>
+
+#### Props
+Name | Description | Default | Type
+------|-------------|----------|-----------
+text | text of tag | "tag" | string
+onPress | function that call when tag pressed | onPress={()=>{}} | func
+style | style of the component container | undefined | style
+textStyle | style of tag text | undefined | style
+color | color of tag | undefined | on of ['red','orange','yellow','lime','green','blue','purple']
+Left | component that will render on left side of tag text | null | React Component
+Right | component that will render on right side of tag text | null | React Component
+loading | boolean props that show or hide spinner | false | bool
+loadingProps | ActivityIndicator Props | undefined | ActivityIndicatorProps
 
 ### Form
 Form is wrapper component that can return all named components value like web forms. Working with UI components of this library. If you can use web forms you know how to use this Form. All you need is:

@@ -6,41 +6,16 @@ import React, {
   useState,
   useMemo,
   useCallback,
-  ReactElement,
 } from "react";
 import {
   Animated,
   View,
   PanResponder,
-  ViewProps,
-  StyleProp,
-  ViewStyle,
   LayoutChangeEvent,
 } from "react-native";
 
 import { styles } from "./styles";
-
-export interface SliderProps extends ViewProps {
-  minValue?: number;
-  maxValue?: number;
-  trackStyle?: StyleProp<ViewStyle>;
-  circleStyle?: StyleProp<ViewStyle>;
-  circleSize?: number;
-  circleIsScale?: boolean;
-  circleMaxScale?: number;
-  onValueChange?: (value: number) => void;
-  CustomCircle?: ReactElement;
-}
-
-export type SliderSetValueOpotion = {
-  animated?: boolean;
-};
-
-export type SliderHandler = {
-  value: number;
-  setValue?: (value: number, options?: SliderSetValueOpotion) => void;
-  containerRef: View | null;
-};
+import { SliderProps, SliderHandler, SliderSetValueOpotion } from "./types";
 
 const Slider = forwardRef<SliderHandler, SliderProps>(
   (

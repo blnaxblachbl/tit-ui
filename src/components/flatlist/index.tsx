@@ -1,21 +1,13 @@
-import React, {
-  useMemo,
-  forwardRef,
-  ReactNode,
-  ReactElement,
-  JSXElementConstructor,
-  ComponentType,
-} from "react";
-import {
-  FlatList as List,
-  StyleSheet,
-  RefreshControl,
-  View,
-  Text,
-  FlatListProps,
-} from "react-native";
+import React, { useMemo, forwardRef } from "react";
+import { FlatList as List, RefreshControl, View, Text } from "react-native";
 
-type DefaultEmptyProps = { text: string };
+import { styles } from "./styles";
+import {
+  DefaultEmptyProps,
+  TFlatListProps,
+  TItem,
+  EmptyComponentType,
+} from "./types";
 
 const DefaultEmpty = ({ text }: DefaultEmptyProps) => {
   return (
@@ -24,21 +16,6 @@ const DefaultEmpty = ({ text }: DefaultEmptyProps) => {
     </View>
   );
 };
-
-export interface TFlatListProps<TItem> extends FlatListProps<TItem> {
-  loading?: boolean;
-  onRefresh?: () => void;
-  LoadinComponent?: ReactNode | null;
-  useRefreshControl?: boolean;
-  emptyComponenText?: string;
-}
-
-type TItem = any | null | undefined;
-type EmptyComponentType =
-  | ReactElement<any, string | JSXElementConstructor<any>>
-  | ComponentType<any>
-  | null
-  | undefined;
 
 const FlatList = forwardRef<List, TFlatListProps<TItem>>(
   (
@@ -99,28 +76,3 @@ const FlatList = forwardRef<List, TFlatListProps<TItem>>(
 );
 
 export default FlatList;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    width: "100%",
-  },
-  contentContainer: {
-    alignItems: "center",
-  },
-  emptyContainer: {
-    flex: 1,
-  },
-  defaultEmptyContainer: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    padding: 15,
-    width: "100%",
-  },
-  defaultEmptyText: {
-    fontSize: 14,
-    textAlign: "center",
-    color: "#ccc",
-  },
-});

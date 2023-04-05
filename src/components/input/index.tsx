@@ -5,49 +5,17 @@ import {
   useRef,
   useCallback,
   useState,
-  RefObject,
-  ReactNode,
 } from "react";
 import {
   TextInput,
   View,
   Text,
-  StyleSheet,
-  TextInputProps,
-  StyleProp,
-  ViewStyle,
-  TextStyle,
   NativeSyntheticEvent,
   TextInputFocusEventData,
 } from "react-native";
 
-import { normalize } from "../../functions/normalize";
-
-export interface InputProps extends TextInputProps {
-  containerStyle?: StyleProp<ViewStyle>;
-  inputContainerStyle?: StyleProp<ViewStyle>;
-  inputStyle?: StyleProp<ViewStyle>;
-  labelStyle?: StyleProp<TextStyle>;
-  noteStyle?: StyleProp<TextStyle>;
-  note?: string;
-  label?: StyleProp<TextStyle>;
-  Left?: ReactNode;
-  Right?: ReactNode;
-  focusedBorderColor?: string;
-  focusedLabelColor?: string;
-  initValue?: string;
-  required?: boolean;
-  requiredTextStyle?: StyleProp<TextStyle>;
-  requiredText?: string;
-}
-
-export type InputHandler = {
-  inputRef: RefObject<TextInput>;
-  containerRef: RefObject<View>;
-  focused: boolean;
-  value: string;
-  setValue: (text: string) => void;
-};
+import { styles } from "./styles";
+import { InputHandler, InputProps } from "./types";
 
 const Input = forwardRef<InputHandler, InputProps>(
   (
@@ -177,45 +145,5 @@ const Input = forwardRef<InputHandler, InputProps>(
     );
   }
 );
-
-const styles = StyleSheet.create({
-  container: {
-    width: "100%",
-  },
-  inputContainer: {
-    width: "100%",
-    borderRadius: 6,
-    paddingHorizontal: normalize(12),
-    backgroundColor: "#fff",
-    height: normalize(42),
-    flexDirection: "row",
-    borderWidth: 1,
-    borderColor: "#A9A9A9",
-    alignItems: "center",
-    justifyContent: "space-between",
-  },
-  input: {
-    flex: 1,
-    fontSize: normalize(14),
-    height: "100%",
-  },
-  label: {
-    marginBottom: 6,
-    fontSize: normalize(12),
-    fontWeight: "bold",
-    color: "#3c4043",
-    width: "100%",
-  },
-  note: {
-    fontSize: normalize(12),
-    color: "#3c4043",
-    width: "100%",
-  },
-  required: {
-    fontSize: 12,
-    color: "red",
-    letterSpacing: 3,
-  },
-});
 
 export default Input;

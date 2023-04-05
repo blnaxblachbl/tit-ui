@@ -1,34 +1,15 @@
-import React, { forwardRef, RefObject, useCallback } from "react";
+import React, { forwardRef, useCallback } from "react";
 import {
   View,
-  StyleSheet,
   Text,
   Image,
   TouchableOpacity,
-  StyleProp,
-  ViewStyle,
-  ImageStyle,
-  TextStyle,
-  ImageProps,
-  ImageSourcePropType,
 } from "react-native";
 
 import Badge from "../badge";
-import { normalize } from "../../functions/normalize";
 
-export type AvatarProps = {
-  source?: ImageSourcePropType;
-  nameString?: string;
-  onPress?: () => void;
-  badge?: number;
-
-  style?: StyleProp<ViewStyle>;
-  imageStyle?: StyleProp<ImageStyle>;
-  badgeStyle?: StyleProp<ViewStyle>;
-  badgeTextStyle?: StyleProp<TextStyle>;
-  imageProps?: ImageProps;
-  letterStyle?: StyleProp<TextStyle>;
-};
+import { styles } from "./styles";
+import { AvatarProps } from "./types";
 
 const Avatar = forwardRef<TouchableOpacity, AvatarProps>(
   (
@@ -93,32 +74,5 @@ const Avatar = forwardRef<TouchableOpacity, AvatarProps>(
     );
   }
 );
-
-const styles = StyleSheet.create({
-  container: {
-    width: 80,
-    height: 80,
-    borderRadius: 40,
-  },
-  image: {
-    width: "100%",
-    height: "100%",
-    borderRadius: 40,
-    alignItems: "center",
-    justifyContent: "center",
-    flexDirection: "row",
-    backgroundColor: "#bdbdbd",
-  },
-  letter: {
-    fontSize: normalize(30),
-    fontWeight: "bold",
-    color: "#ffffff",
-  },
-  badge: {
-    position: "absolute",
-    bottom: 2,
-    right: -2,
-  },
-});
 
 export default Avatar;

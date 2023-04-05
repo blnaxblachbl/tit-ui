@@ -1,20 +1,8 @@
-import React, { ForwardedRef, forwardRef, RefObject, useMemo } from "react";
-import {
-  View,
-  StyleSheet,
-  Text,
-  StyleProp,
-  ViewStyle,
-  TextStyle,
-} from "react-native";
+import React, { forwardRef, useMemo } from "react";
+import { View, Text } from "react-native";
 
-import { normalize } from "../../functions/normalize";
-
-export type BadgeProps = {
-  style?: StyleProp<ViewStyle>;
-  textStyle?: StyleProp<TextStyle>;
-  badge: number;
-};
+import { styles } from "./styles";
+import { BadgeProps } from "./types";
 
 const Badge = forwardRef<View, BadgeProps>(
   ({ style, textStyle, badge = 0 }, ref) => {
@@ -43,21 +31,3 @@ const Badge = forwardRef<View, BadgeProps>(
 );
 
 export default Badge;
-
-const styles = StyleSheet.create({
-  badge: {
-    minWidth: 25,
-    height: 25,
-    backgroundColor: "#fd1a0b",
-    borderRadius: 12,
-    alignItems: "center",
-    justifyContent: "center",
-    paddingHorizontal: 5,
-  },
-  badgeText: {
-    color: "#ffffff",
-    fontSize: normalize(12),
-    fontWeight: "bold",
-    maxWidth: 70,
-  },
-});

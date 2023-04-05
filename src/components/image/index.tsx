@@ -12,32 +12,18 @@ import {
   Animated,
   PanResponder,
   Dimensions,
-  StyleSheet,
-  ImageProps,
-  StyleProp,
-  ViewStyle,
-  ImageStyle,
   NativeSyntheticEvent,
   ImageErrorEventData,
 } from "react-native";
 
-const { width } = Dimensions.get("window");
+import { styles } from "./styles";
+import { Point, TImageProps } from "./types";
 
-type Point = [number, number];
+const { width } = Dimensions.get("window");
 
 const pointsDistance = ([xA, yA]: Point, [xB, yB]: Point): number => {
   return Math.sqrt(Math.pow(xA - xB, 2) + Math.pow(yA - yB, 2));
 };
-
-export interface TImageProps extends ImageProps {
-  canScale?: boolean;
-  showLoading?: boolean;
-  containerStyle?: StyleProp<ViewStyle>;
-  imageStyle?: StyleProp<ImageStyle>;
-  loadingContainerStyle?: StyleProp<ViewStyle>;
-  loadingColor?: string;
-  loadingSize?: number | "large" | "small" | undefined;
-}
 
 const Image = forwardRef<RNImage, TImageProps>(
   (
@@ -179,22 +165,5 @@ const Image = forwardRef<RNImage, TImageProps>(
     );
   }
 );
-
-const styles = StyleSheet.create({
-  container: {
-    width: "100%",
-    overflow: "hidden",
-  },
-  loading: {
-    ...StyleSheet.absoluteFillObject,
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "rgba(255,255,255,0.2)",
-  },
-  imageStyle: {
-    width: "100%",
-    aspectRatio: 16 / 9,
-  },
-});
 
 export default Image;

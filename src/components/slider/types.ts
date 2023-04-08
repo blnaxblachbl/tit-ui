@@ -11,6 +11,7 @@ export interface SliderProps extends ViewProps {
   circleMaxScale?: number;
   onValueChange?: (value: number) => void;
   CustomCircle?: ReactElement;
+  initValue?: number;
 }
 
 export type SliderSetValueOpotion = {

@@ -440,6 +440,7 @@ close() | function to close picker | undefined | function
                 }}
                 minValue={-100}
                 maxValue={100}
+                initValue={0}
                 style={{marginVertical: 50}}
             />
             <UI.Button
@@ -459,6 +460,7 @@ Name | Description | Default | Type
 ------|-------------|----------|-----------
 minValue | initial minimum value of the slider | 0 | number
 maxValue | maximum value of slider | 100 | number
+initValue | initial value of slider | minValue | 0 | number
 style | style of the component container | undefined | style
 trackStyle | style of slider track line | undefined | style
 circleStyle | style of circle on track | undefined | style

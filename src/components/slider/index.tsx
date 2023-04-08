@@ -7,12 +7,7 @@ import React, {
   useMemo,
   useCallback,
 } from "react";
-import {
-  Animated,
-  View,
-  PanResponder,
-  LayoutChangeEvent,
-} from "react-native";
+import { Animated, View, PanResponder, LayoutChangeEvent } from "react-native";
 
 import { styles } from "./styles";
 import { SliderProps, SliderHandler, SliderSetValueOpotion } from "./types";
@@ -30,12 +25,13 @@ const Slider = forwardRef<SliderHandler, SliderProps>(
       circleMaxScale = 1.3,
       onValueChange = (value: number) => {},
       CustomCircle = null,
+      initValue = minValue,
     },
     ref
   ) => {
     const scale = useRef(new Animated.Value(1)).current;
     const pan = useRef(new Animated.Value(0)).current;
-    const lastValue = useRef<number>(minValue);
+    const lastValue = useRef<number>(initValue);
     const containerRef = useRef<View>(null);
     const [containerWidth, setContainerWidth] = useState<number>(0);
     const offset = useMemo(() => circleSize / 2, [circleSize]);
@@ -83,6 +79,11 @@ const Slider = forwardRef<SliderHandler, SliderProps>(
     const onContainerLayout = (e: LayoutChangeEvent) => {
       if (!containerWidth) {
         setContainerWidth(e.nativeEvent.layout.width);
+        setValue(initValue, { animated: false });
+        const newValue =
+          ((initValue - minValue) * e.nativeEvent.layout.width) /
+          (maxValue - minValue);
+        pan.setValue(newValue);
       }
     };
 
@@ -119,9 +120,9 @@ const Slider = forwardRef<SliderHandler, SliderProps>(
 
     translateX.addListener(({ value }) => {
       const newValue = Math.floor((value + offset) / step) + minValue;
-      if (lastValue.current !== newValue) {
-        onValueChange(newValue);
+      if (!isNaN(newValue) && lastValue.current !== newValue) {
         lastValue.current = newValue;
+        onValueChange(newValue);
       }
     });
 

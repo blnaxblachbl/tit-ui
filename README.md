@@ -686,6 +686,7 @@ return (
     </View>
 )
 ```
+<img width="35%" src="./images/tag.jpg"/>
 
 #### Props
 Name | Description | Default | Type

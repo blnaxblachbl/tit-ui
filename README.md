@@ -642,7 +642,7 @@ return (
 
 2. **Wrap with Provider** - use useStateValue hook to get states and change it.
 ```javascript
-import { Provider } from 'tit-ui'
+import { useStateValue } from 'tit-ui'
 
 type GlodalState = {
   count: number;

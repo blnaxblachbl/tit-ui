@@ -79,11 +79,10 @@ export const Slider = forwardRef<SliderHandler, SliderProps>(
     ).current;
 
     const onContainerLayout = (e: LayoutChangeEvent) => {
-      if (!containerWidth) {
+      if (e.nativeEvent.layout.width !== containerWidth) {
         setContainerWidth(e.nativeEvent.layout.width);
-        setValue(initValue, { animated: false });
         const newValue =
-          ((initValue - minValue) * e.nativeEvent.layout.width) /
+          ((lastValue.current - minValue) * e.nativeEvent.layout.width) /
           (maxValue - minValue);
         pan.setValue(newValue);
       }

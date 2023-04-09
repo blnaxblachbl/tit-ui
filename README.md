@@ -701,13 +701,13 @@ useStateValue | return states and function to change it | [state: object, setSta
 - **_normalize_** - is a function which normalizes the font size of the text relative to the screen size.
 
 ```javascript
-import { Functions } from 'tit-ui'
+import { normalize } from 'tit-ui'
 
 //...
 
 return (
     <View style={styles.container}>
-        <Text style={{ fontSize: Functions.normalize(14), color: "#000000", marginBottom: 15 }}>Some text</Text>
+        <Text style={{ fontSize: normalize(14), color: "#000000", marginBottom: 15 }}>Some text</Text>
     </View>
 );
 
@@ -724,15 +724,15 @@ const styles = StyleSheet.create({
 - **_hexToRgba_** - is a function that can convert color hex value to rgb or rgba.
 
 ```javascript
-import { Functions } from 'tit-ui'
+import { hexToRgba } from 'tit-ui'
 //...
 const color = "#c260b5"
 const alpha = 0.2
 return (
     <View style={styles.container}>
         <Text>{color}</Text>
-        <Text>{Functions.hexToRgba(color)}</Text>
-        <Text>{Functions.hexToRgba(color, alpha)}</Text>
+        <Text>{hexToRgba(color)}</Text>
+        <Text>{hexToRgba(color, alpha)}</Text>
     </View>
 )
 ```
@@ -742,7 +742,7 @@ return (
 - **_measure_** - is a async function that can return width ,height, x and y positons in window by component ref.
 
 ```javascript
-import { Functions } from 'tit-ui'
+import { measure } from 'tit-ui'
 //...
 
 const viewRef = useRef()

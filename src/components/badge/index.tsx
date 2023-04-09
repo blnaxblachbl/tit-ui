@@ -4,7 +4,9 @@ import { View, Text } from "react-native";
 import { styles } from "./styles";
 import { BadgeProps } from "./types";
 
-const Badge = forwardRef<View, BadgeProps>(
+export * from "./types";
+
+export const Badge = forwardRef<View, BadgeProps>(
   ({ style, textStyle, badge = 0 }, ref) => {
     const _badge = useMemo(() => {
       if (typeof badge == "number") {
@@ -29,5 +31,3 @@ const Badge = forwardRef<View, BadgeProps>(
     );
   }
 );
-
-export default Badge;

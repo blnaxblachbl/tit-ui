@@ -48,7 +48,9 @@ const getLabel = (data: Data | undefined) => {
   return "";
 };
 
-const Picker = forwardRef<PickerHandler, PickerProps>(
+export * from "./types";
+
+export const Picker = forwardRef<PickerHandler, PickerProps>(
   (
     {
       containerStyle,
@@ -266,5 +268,3 @@ const List = forwardRef<VirtualizedList<Data>, ListProps>(
     );
   }
 );
-
-export default Picker;

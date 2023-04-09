@@ -13,7 +13,9 @@ import { View } from "react-native";
 import { styles } from "./styles";
 import { AnyObject, FormHandler, FormProps } from "./types";
 
-const Form = forwardRef<FormHandler, FormProps>(
+export * from "./types";
+
+export const Form = forwardRef<FormHandler, FormProps>(
   ({ children, style, onSubmit = () => {}, initValues }, formRef) => {
     const nodes = useRef(new Map()).current;
 
@@ -104,5 +106,3 @@ const Form = forwardRef<FormHandler, FormProps>(
     );
   }
 );
-
-export default Form;

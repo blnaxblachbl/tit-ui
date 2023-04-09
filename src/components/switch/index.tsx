@@ -6,25 +6,22 @@ import React, {
   useCallback,
   useImperativeHandle,
   useRef,
-  RefObject,
 } from "react";
 import {
   LayoutAnimation,
   Platform,
   UIManager,
-  StyleSheet,
   View,
   Text,
   TouchableWithoutFeedback,
-  StyleProp,
-  ViewStyle,
-  TextStyle,
 } from "react-native";
 
 import { styles } from "./styles";
 import { SwitchHandler, SwitchProps } from "./types";
 
-const Switch = forwardRef<SwitchHandler, SwitchProps>(
+export * from "./types";
+
+export const Switch = forwardRef<SwitchHandler, SwitchProps>(
   (
     {
       containerStyle,
@@ -124,5 +121,3 @@ const Switch = forwardRef<SwitchHandler, SwitchProps>(
     );
   }
 );
-
-export default Switch;

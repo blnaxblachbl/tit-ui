@@ -12,7 +12,9 @@ import { Animated, View, PanResponder, LayoutChangeEvent } from "react-native";
 import { styles } from "./styles";
 import { SliderProps, SliderHandler, SliderSetValueOpotion } from "./types";
 
-const Slider = forwardRef<SliderHandler, SliderProps>(
+export * from "./types";
+
+export const Slider = forwardRef<SliderHandler, SliderProps>(
   (
     {
       style,
@@ -166,5 +168,3 @@ const Slider = forwardRef<SliderHandler, SliderProps>(
     );
   }
 );
-
-export default Slider;

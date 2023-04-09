@@ -53,6 +53,7 @@ export type PickerProps = {
   required?: boolean;
   requiredTextStyle?: StyleProp<TextStyle>;
   requiredText?: string;
+  name?: string;
 };
 
 export type PickerHandler = {

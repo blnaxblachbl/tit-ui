@@ -14,6 +14,7 @@ export type SwitchProps = {
   onChangeState?: (value: boolean) => void;
   initValue?: boolean;
   value?: boolean;
+  name?: string;
 };
 
 export type SwitchHandler = {

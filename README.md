@@ -13,29 +13,22 @@ yarn add tit-ui
 ```
 Thats it!
 
-## Usage
-
-For use you can import Functions, UI and Form:
-
-```javascript
-import { Functions, UI, Form } from 'tit-ui'
-```
-
 ### UI
 
 - **_Switch_** - is UI component of switch:
 
 ```javascript
-import { UI } from 'tit-ui'
+import { Switch, SwitchHandler } from 'tit-ui'
 
 const [switchState, setSwitchState] = useState(false)
+const switchRef = useRef<SwitchHandler>(null)
 
 //...
 
 return (
     <View style={styles.container}>
-        <UI.Switch />
-        <UI.Switch
+        <Switch ref={switchRef} />
+        <Switch
             textStyle={{
                 fontSize: 20
             }}
@@ -70,6 +63,7 @@ return (
 #### Props
 Name | Description | Default | Type
 ------|-------------|----------|-----------
+ref | reference to component | undefined | SwitchHandler
 value | value of switch | undefined | bool
 initValue | initial position | false | bool
 textStyle | switch text style | undefined | style
@@ -93,13 +87,15 @@ setValue() | setting value | none
 
 ```javascript
 //...
-import { UI } from 'tit-ui'
+import { Input, InputHandler } from 'tit-ui'
 //...
 const [text, setText] = useState("")
+const inputRef = useRef<InputHandler>(null)
 
 return (
     <View style={styles.container}>
-        <UI.Input
+        <Input
+            ref={inputRef}
             placeholder='Some placeholder'
             label='This is label'
             note='This is note'
@@ -114,6 +110,7 @@ return (
 #### Props
 Name | Description | Default | Type
 ------|-------------|----------|-----------
+ref | reference to component | undefined | InputHandler
 value | value of TextInput component | "" | string
 containerStyle | style of container that includes input container, label and note | {} | object
 inputContainerStyle | style of input container that includes TextInput, Left and Right components | {} | object
@@ -143,11 +140,11 @@ setValue() | setting value | none
 
 ```javascript
 //...
-import { UI } from 'tit-ui'
+import { Button } from 'tit-ui'
 //...
 return (
     <View style={styles.container}>
-        <UI.Button 
+        <Button 
             text="Button"
         />
     </View>
@@ -169,14 +166,15 @@ loadingColor | color of loading spinner | "#ffffff" | string
 - **_RadioButton_** - is UI component of radio button.
 
 ```javascript
-import { UI } from 'tit-ui'
+import { Radio, RadioButtonHandler } from 'tit-ui'
 //...
 const [value, setValue] = useState(false)
 const [value1, setValue1] = useState(false)
+const radioRef = useRef<RadioButtonHandler>(null)
 //...
 return (
     <View style={styles.container}>
-        <UI.Radio
+        <Radio
             value={value}
             title="Title"
             onPress={() => setValue(!value)}
@@ -184,7 +182,7 @@ return (
             inactiveColor="black"
             containerStyle={{ marginBottom: 12 }}
         />
-        <UI.Radio
+        <Radio
             value={value1}
             title="Title 1"
             onPress={() => setValue1(!value1)}
@@ -200,6 +198,7 @@ return (
 #### Props
 Name | Description | Default | Type
 ------|-------------|----------|-----------
+ref | reference to component | undefined | RadioButtonHandler
 containerStyle | style of the component container | object | style
 innerCircleStyle | style of the inner circle | object | style
 circleStyle | style of the outer circle | object | style
@@ -220,7 +219,7 @@ setValue() | setting value | none
 - **_Avatar_** - is UI component of image for lists to profile screens.
 
 ```javascript
-import { UI } from 'tit-ui'
+import { Avatar } from 'tit-ui'
 //...
 const styles = StyleSheet.create({
     container: {
@@ -234,13 +233,13 @@ const styles = StyleSheet.create({
 
 return (
     <View style={styles.container}>
-        <UI.Avatar
+        <Avatar
             source={{ uri:"https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSsb3dnwW7TWK8zRGaCQ_ThqeLRWTZKXsWAL5z6rI_9UAwM0NqH" }}
             nameString="Tit Hardwood"
             badge={100}
             style={{ marginBottom: 15 }}
         />
-        <UI.Avatar
+        <Avatar
             nameString="Tit Hardwood"
             badge={5}
         />
@@ -267,7 +266,7 @@ letterStyle | style of letters of nameString when imageUrl is empty | {} | style
 - **_Badge_** - is UI component used to render a numerical value.
 
 ```javascript
-    import { UI } from 'tit-ui'
+    import { Badge } from 'tit-ui'
     //...
     const styles = StyleSheet.create({
         container: {
@@ -280,9 +279,9 @@ letterStyle | style of letters of nameString when imageUrl is empty | {} | style
     //...
     return (
         <View style={styles.container}>
-            <UI.Badge badge={1} />
-            <UI.Badge badge={12} />
-            <UI.Badge badge={123} />
+            <Badge badge={1} />
+            <Badge badge={12} />
+            <Badge badge={123} />
         </View>
     )
 ```
@@ -299,10 +298,10 @@ textStyle | style of the badge value | undefined | style
 - **_Image_** - Image component with scale.
 
 ```javascript
-import { UI } from 'tit-ui'
+import { Image } from 'tit-ui'
 
 return (
-    <UI.Image
+    <Image
         source={{ uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgrZ4O36TDysDmv3itq4KPoOVtE39kVgcC-NE0-iRp&s' }}
         style={{
             width: '100%',
@@ -331,16 +330,16 @@ and all React-Native Image component props |  |  | any
 - **_FlatList_** - is modified React-Native FlatList component.
 
 ```javascript
-import { UI } from 'tit-ui'
+import { FlatList, Image } from 'tit-ui'
 
 return(
-    <UI.FlatList
+    <FlatList
         data={new Array(10).fill({})}
         style={{ flex: 1 }}
         contentContainerStyle={{ padding: 12, alignItems: 'center' }}
         loading={true}
         renderItem={() => (
-            <UI.Image
+            <Image
                 source={{ uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgrZ4O36TDysDmv3itq4KPoOVtE39kVgcC-NE0-iRp&s' }}
                 style={{
                     width: width - 30,
@@ -368,10 +367,12 @@ and all FlatList component props |  |  | any
 - **_Picker_** - Picker component like drop down menu.
 
 ```javascript
-import { UI } from 'tit-ui'
+import { Picker } from 'tit-ui'
+
+const pickerRef = useRef<PickerHandler>(null)
 
 return (
-    <UI.Picker
+    <Picker
         data={["JavaScript", "Pyton", "C++", "C#", "Ruby", "Swift", "Go"]}
         label='Language'
         containerStyle={{ marginBottom: 12 }}
@@ -383,6 +384,7 @@ return (
 #### Props
 Name | Description | Default | Type
 ------|-------------|----------|-----------
+ref | reference to component | undefined | PickerHandler
 containerStyle | style of component container | {} | object
 pickerStyle | style of picker container | {} | object
 labelStyle | style of label component on top of picker that based on React-Native Text component | {} | object
@@ -425,16 +427,16 @@ close() | function to close picker | undefined | function
 - **_Slider_** - Slider component to select single value from a range of values.
 
 ```javascript
-    import { UI } from 'tit-ui'
+    import { Slider, Button } from 'tit-ui'
     //...
-    const refs = useRef(new Map()).current;
+    const sliderRef = useRef<SliderHandler>(null);
     const [sliderValue, setSliderValue] = useState(-100);
 
     return (
         <>
             <Text>Slider value: {sliderValue}</Text>
             <Slider
-                ref={r => refs.set('slider', r)}
+                ref={sliderRef}
                 onValueChange={value => {
                     setSliderValue(value);
                 }}
@@ -443,7 +445,7 @@ close() | function to close picker | undefined | function
                 initValue={0}
                 style={{marginVertical: 50}}
             />
-            <UI.Button
+            <Button
                 text="Set random value"
                 onPress={() => {
                     const randomValue = Math.floor(Math.random() * (100 - -100) + -100);
@@ -458,6 +460,7 @@ close() | function to close picker | undefined | function
 #### Props
 Name | Description | Default | Type
 ------|-------------|----------|-----------
+ref | reference to component | undefined | SliderHandler
 minValue | initial minimum value of the slider | 0 | number
 maxValue | maximum value of slider | 100 | number
 initValue | initial value of slider | minValue | 0 | number
@@ -479,7 +482,7 @@ setValue() | setting value | none
 - **_Tag_** - Tag for markup.
 
 ```javascript
-    import { UI } from 'tit-ui'
+    import { Tag } from 'tit-ui'
     //...
     return (
         <View
@@ -489,14 +492,14 @@ setValue() | setting value | none
                 justifyContent: 'center',
             }}
         >
-            <UI.Tag text="default" />
-            <UI.Tag text="red" color="red" />
-            <UI.Tag text="orange" color="orange" />
-            <UI.Tag text="lime" color="lime" />
-            <UI.Tag text="yellow" color="yellow" />
-            <UI.Tag text="green" color="green" />
-            <UI.Tag text="blue" color="blue" />
-            <UI.Tag text="purple" color="purple" />
+            <Tag text="default" />
+            <Tag text="red" color="red" />
+            <Tag text="orange" color="orange" />
+            <Tag text="lime" color="lime" />
+            <Tag text="yellow" color="yellow" />
+            <Tag text="green" color="green" />
+            <Tag text="blue" color="blue" />
+            <Tag text="purple" color="purple" />
         </View>
     )
 ```
@@ -530,10 +533,13 @@ Form is wrapper component that can return all named components value like web fo
 Thats it! Your form is ready. If you want to use your own component in Form, you should modify your component like [this](../main/examples/how%20to%20use%20your%20own%20components%20in%20Form.md).
 
 ```javascript
-import { Form, UI } from 'tit-ui'
+import { Form, Input, Picker, Radio, Switch, Button, FormHandler } from 'tit-ui'
+
+const formRef = useRef<FormHandler>(null);
 
 return (
     <Form
+        ref={formRef}
         onSubmit={(result) => { //onSubmit function
             const { data, errors } = result // result contains "data" and "errors"
             if (data) { //data will be "null" if form get errors
@@ -550,45 +556,45 @@ return (
         }}
     >
         <View style={{ flexDirection: "row", width: "100%", justifyContent: "space-between" }}>
-            <UI.Input
+            <Input
                 placeholder='name'
                 containerStyle={{ marginBottom: 12, width: '48%' }}
                 label='Name'
                 name='name' //this name prop 
             />
-            <UI.Input
+            <Input
                 placeholder='surname'
                 containerStyle={{ marginBottom: 12, width: '48%' }}
                 label='Surname'
                 name='surname' //this name prop 
             />
         </View>
-        <UI.Input
+        <Input
             placeholder='pass'
             label='Pass'
             containerStyle={{ marginBottom: 12 }}
             name='pass' //this name prop 
         />
-        <UI.Picker
+        <Picker
             data={["JavaScript", "Pyton", "C++", "C#", "Ruby", "Swift", "Go"]}
             label='Language'
             containerStyle={{ marginBottom: 12 }}
             placeholder='Select your favorite'
             required // this is required prop
         />
-        <UI.Radio
+        <Radio
             name='check-box' //this name prop 
             title='need your submition'
             containerStyle={{ marginBottom: 12 }}
         />
         <View style={{ flexDirection: 'row', width: "100%" }}>
-            <UI.Switch
+            <Switch
                 name='switch' //this name prop 
                 containerStyle={{ marginBottom: 12 }}
             />
             <Text style={{ marginLeft: 6 }}>wont to subscribe to notificattion</Text>
         </View>
-        <UI.Button
+        <Button
             type='submit' //this is trigger props 
             text="Submit"
         />
@@ -599,6 +605,7 @@ return (
 #### Props
 Name | Description | Default | Type
 ------|-------------|----------|-----------
+ref | reference to component | undefined | SliderHandler
 onSubmit | Function that return values and errors by object ({data, errors}) => {...} | undefined | function
 initValues | object of initial values of form | undefined | object
 
@@ -606,6 +613,87 @@ initValues | object of initial values of form | undefined | object
 Name | Description | Return type
 ------|-------------|----------
 submit() | Method to trigger "onSubmit" function | none
+
+### Provider
+This is the store provider with simple logic - describe initial state and change it with one function. To it use:
+
+1. **Wrap with Provider** - Wrap root component with Provider and describe initial states.
+```javascript
+import { Provider } from 'tit-ui'
+
+type GlodalState = {
+  count: number;
+  name: string;
+};
+
+//...
+
+const initValue = {
+    count: 0, 
+    name: ''
+} as GlodalState
+
+return (
+<Provider<GlodalState> initValue={initValue}>
+    <App />
+</Provider>
+);
+```
+
+2. **Wrap with Provider** - use useStateValue hook to get states and change it.
+```javascript
+import { Provider } from 'tit-ui'
+
+type GlodalState = {
+  count: number;
+  name: string;
+};
+
+//...
+
+const [state, setState] = useStateValue<GlodalState>();
+
+return (
+    <View style={{flex: 1, alignItems: 'center'}}>
+        <Text style={{marginVertical: 40}}>Name value: {state.name}</Text>
+        <Input
+            value={state.name}
+            onChangeText={text => setState({name: text})}
+            placeholder="Enter name"
+        />
+        <Text style={{marginVertical: 40}}>Count value: {state.count}</Text>
+        <View
+            style={{
+                width: '50%',
+                justifyContent: 'space-between',
+                flexDirection: 'row',
+            }}>
+            <Button
+                text="-"
+                onPress={() => {
+                    setState({count: state.count - 1});
+                }}
+                style={{width: 60}}
+            />
+            <Button
+                text="+"
+                onPress={() => {
+                    setState({count: state.count + 1});
+                }}
+                style={{width: 60}}
+            />
+        </View>
+    </View>
+)
+```
+
+#### Props
+Name | Description | Default | Type
+------|-------------|----------|-----------
+initValue | initial states | {} | object
+#### Hooks
+Name | Description | Return type
+useStateValue | return states and function to change it | [state: object, setState(data: object) => void]
 
 ### Functions
 - **_normalize_** - is a function which normalizes the font size of the text relative to the screen size.

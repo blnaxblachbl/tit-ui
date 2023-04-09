@@ -1,25 +1,11 @@
-import Input from "./input";
-import Button from "./button";
-import Image from "./image";
-import FlatList from "./flatlist";
-import Avatar from "./avatar";
-import Badge from "./badge";
-import Radio from "./radioButton";
-import Switch from "./switch";
-import Picker from "./picker";
-import Slider from "./slider";
-import Tag from "./tag";
-
-export default {
-  Input,
-  Button,
-  Image,
-  FlatList,
-  Avatar,
-  Badge,
-  Radio,
-  Switch,
-  Picker,
-  Slider,
-  Tag
-};
+export * from "./avatar";
+export * from "./badge";
+export * from "./button";
+export * from "./flatlist";
+export * from "./image";
+export * from "./input";
+export * from "./picker";
+export * from "./radioButton";
+export * from "./slider";
+export * from "./switch";
+export * from './tag'

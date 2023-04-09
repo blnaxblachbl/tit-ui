@@ -14,4 +14,5 @@ export type ButtonProps = {
   textStyle?: StyleProp<TextStyle>;
   loadingColor?: string;
   children?: ReactNode;
+  type?: string;
 };

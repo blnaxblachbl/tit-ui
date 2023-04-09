@@ -9,6 +9,8 @@ import {
   EmptyComponentType,
 } from "./types";
 
+export * from "./types";
+
 const DefaultEmpty = ({ text }: DefaultEmptyProps) => {
   return (
     <View style={styles.defaultEmptyContainer}>
@@ -17,7 +19,7 @@ const DefaultEmpty = ({ text }: DefaultEmptyProps) => {
   );
 };
 
-const FlatList = forwardRef<List, TFlatListProps<TItem>>(
+export const FlatList = forwardRef<List, TFlatListProps<TItem>>(
   (
     {
       data = [],
@@ -74,5 +76,3 @@ const FlatList = forwardRef<List, TFlatListProps<TItem>>(
     );
   }
 );
-
-export default FlatList;

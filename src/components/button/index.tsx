@@ -10,7 +10,9 @@ import {
 import { styles } from "./styles";
 import { ButtonProps } from "./types";
 
-const Button = forwardRef<View, ButtonProps>(
+export * from "./types";
+
+export const Button = forwardRef<View, ButtonProps>(
   (
     {
       style,
@@ -53,5 +55,3 @@ const Button = forwardRef<View, ButtonProps>(
     );
   }
 );
-
-export default Button;

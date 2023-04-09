@@ -6,16 +6,14 @@ import React, {
   useRef,
   useState,
 } from "react";
-import {
-  View,
-  Text,
-  TouchableWithoutFeedback,
-} from "react-native";
+import { View, Text, TouchableWithoutFeedback } from "react-native";
 
 import { styles } from "./styles";
 import { RadioButtonHandler, RadioButtonProps } from "./types";
 
-const RadioButton = forwardRef<RadioButtonHandler, RadioButtonProps>(
+export * from "./types";
+
+export const Radio = forwardRef<RadioButtonHandler, RadioButtonProps>(
   (
     {
       containerStyle,
@@ -98,5 +96,3 @@ const RadioButton = forwardRef<RadioButtonHandler, RadioButtonProps>(
     );
   }
 );
-
-export default RadioButton;

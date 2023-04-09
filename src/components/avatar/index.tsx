@@ -1,17 +1,14 @@
 import React, { forwardRef, useCallback } from "react";
-import {
-  View,
-  Text,
-  Image,
-  TouchableOpacity,
-} from "react-native";
+import { View, Text, Image, TouchableOpacity } from "react-native";
 
-import Badge from "../badge";
+import { Badge } from "../badge";
 
 import { styles } from "./styles";
 import { AvatarProps } from "./types";
 
-const Avatar = forwardRef<TouchableOpacity, AvatarProps>(
+export * from "./types";
+
+export const Avatar = forwardRef<TouchableOpacity, AvatarProps>(
   (
     {
       source,
@@ -74,5 +71,3 @@ const Avatar = forwardRef<TouchableOpacity, AvatarProps>(
     );
   }
 );
-
-export default Avatar;

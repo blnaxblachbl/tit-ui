@@ -15,7 +15,7 @@ export interface InputProps extends TextInputProps {
   labelStyle?: StyleProp<TextStyle>;
   noteStyle?: StyleProp<TextStyle>;
   note?: string;
-  label?: StyleProp<TextStyle>;
+  label?: string;
   Left?: ReactNode;
   Right?: ReactNode;
   focusedBorderColor?: string;
@@ -24,6 +24,7 @@ export interface InputProps extends TextInputProps {
   required?: boolean;
   requiredTextStyle?: StyleProp<TextStyle>;
   requiredText?: string;
+  name?: string;
 }
 
 export type InputHandler = {

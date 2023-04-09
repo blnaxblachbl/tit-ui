@@ -17,7 +17,9 @@ import {
 import { styles } from "./styles";
 import { InputHandler, InputProps } from "./types";
 
-const Input = forwardRef<InputHandler, InputProps>(
+export * from "./types";
+
+export const Input = forwardRef<InputHandler, InputProps>(
   (
     {
       containerStyle,
@@ -145,5 +147,3 @@ const Input = forwardRef<InputHandler, InputProps>(
     );
   }
 );
-
-export default Input;

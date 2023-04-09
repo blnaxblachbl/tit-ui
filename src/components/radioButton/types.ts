@@ -12,6 +12,7 @@ export type RadioButtonProps = {
   activeColor?: string;
   inactiveColor?: string;
   initValue?: boolean;
+  name?: string;
 };
 
 export type RadioButtonHandler = {

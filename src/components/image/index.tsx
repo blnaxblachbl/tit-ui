@@ -25,7 +25,9 @@ const pointsDistance = ([xA, yA]: Point, [xB, yB]: Point): number => {
   return Math.sqrt(Math.pow(xA - xB, 2) + Math.pow(yA - yB, 2));
 };
 
-const Image = forwardRef<RNImage, TImageProps>(
+export * from "./types";
+
+export const Image = forwardRef<RNImage, TImageProps>(
   (
     {
       source = { uri: "" },
@@ -165,5 +167,3 @@ const Image = forwardRef<RNImage, TImageProps>(
     );
   }
 );
-
-export default Image;

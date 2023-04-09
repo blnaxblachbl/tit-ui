@@ -7,9 +7,11 @@ import {
 } from 'react-native';
 
 import {styles} from './styles';
-import {TagProps} from './type';
+import {TagProps} from './types';
 
-const Tag = ({
+export * from './types'
+
+export const Tag = ({
   text = 'tag',
   textStyle,
   style,
@@ -57,5 +59,3 @@ const Tag = ({
     </TouchableWithoutFeedback>
   );
 };
-
-export default Tag;

@@ -2,7 +2,7 @@ import { normalize } from "./normalize";
 import { hexToRgba } from "./hexToRgba";
 import { measure } from "./measure";
 
-export default {
+export {
   normalize,
   hexToRgba,
   measure,

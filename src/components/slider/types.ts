@@ -12,6 +12,7 @@ export interface SliderProps extends ViewProps {
   onValueChange?: (value: number) => void;
   CustomCircle?: ReactElement;
   initValue?: number;
+  name?: string;
 }
 
 export type SliderSetValueOpotion = {

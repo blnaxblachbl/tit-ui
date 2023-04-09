@@ -694,6 +694,7 @@ Name | Description | Default | Type
 initValue | initial states | {} | object
 #### Hooks
 Name | Description | Return type
+------|-------------|----------
 useStateValue | return states and function to change it | [state: object, setState(data: object) => void]
 
 ### Functions

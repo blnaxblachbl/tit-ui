@@ -800,7 +800,7 @@ return (
 
 <img width="35%" src="./images/toast/default-thems.jpg"/>
 
-You can provide custom themes. Provide thems to the Toast component props: 
+You can use custom themes. Provide thems to the Toast component props: 
 
 ```javascript
 import { Provider } from 'tit-ui'

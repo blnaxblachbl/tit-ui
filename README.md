@@ -634,13 +634,13 @@ const initValue = {
 } as GlodalState
 
 return (
-<Provider<GlodalState> initValue={initValue}>
-    <App />
-</Provider>
+    <Provider<GlodalState> initValue={initValue}>
+        <App />
+    </Provider>
 );
 ```
 
-2. **Wrap with Provider** - use useStateValue hook to get states and change it.
+2. **Render states and change it** - use useStateValue hook to get states and change it.
 ```javascript
 import { useStateValue } from 'tit-ui'
 
@@ -697,6 +697,312 @@ Name | Description | Return type
 ------|-------------|----------
 useStateValue | return states and function to change it | [state: object, setState(data: object) => void]
 
+### Toast 
+This is the toast component to display global messages.
+
+1. **Render Toast component** - Put Toast component on the root file.
+
+```javascript
+import { Provider } from 'tit-ui'
+
+type GlodalState = {
+  count: number;
+  name: string;
+};
+
+//...
+
+const initValue = {
+    count: 0, 
+    name: ''
+} as GlodalState
+
+return (
+    <Provider<GlodalState> initValue={initValue}>
+        <App />
+        <Toast
+            maxToShow={4}
+            duration={2000}
+        />
+    </Provider>
+);
+```
+
+1. **Display the message** - Call showToast function to disaplay the message.
+
+```javascript
+import { Button, showToast } from 'tit-ui'
+
+//...
+
+return (
+    <Button
+        text="message"
+        onPress={() => {
+            showToast({
+                title: 'Success',
+                text: 'Everything fine',
+                duration: 2000,
+            });
+        }}
+    />
+)
+
+```
+
+You can use default themes to display different types of message:
+
+```javascript
+import { Button, showToast } from 'tit-ui'
+
+//...
+
+return (
+    <Button
+        text="message"
+        onPress={() => {
+            showToast({
+                text: 'Everything fine',
+                duration: 20000,
+                theme: DefaultThems.Success,
+                title: 'Success',
+            });
+            setTimeout(() => {
+                showToast({
+                    text: 'Something went wrong',
+                    duration: 20000,
+                    theme: DefaultThems.Error,
+                    title: 'Error',
+                });
+            }, 100);
+            setTimeout(() => {
+                showToast({
+                    text: 'This is the toast message',
+                    duration: 20000,
+                    theme: DefaultThems.Info,
+                    title: 'Info',
+                });
+            }, 200);
+            setTimeout(() => {
+                showToast({
+                    text: "URL can't be an empty string",
+                    duration: 20000,
+                    theme: DefaultThems.Warning,
+                    title: 'Warning',
+                });
+            }, 300);
+        }}
+    />
+)
+```
+
+<img width="35%" src="./gifs/toast.gif"/>
+
+<img width="35%" src="./images/toast/default-thems.gif"/>
+
+You can provide custom themes. Provide thems to the Toast component props: 
+
+```javascript
+import { Provider } from 'tit-ui'
+
+type GlodalState = {
+  count: number;
+  name: string;
+};
+
+//...
+
+const initValue = {
+    count: 0, 
+    name: ''
+} as GlodalState
+
+return (
+    <Provider<GlodalState> initValue={initValue}>
+        <App />
+        <Toast
+            maxToShow={4}
+            duration={2000}
+            themes={{
+                mySuccess: {
+                    style: {
+                        backgroundColor: '#1fb141',
+                        elevation: 0,
+                        borderWidth: 0,
+                    },
+                    textStyle: {
+                        color: 'white',
+                    },
+                    titleStyle: {
+                        color: 'white',
+                    },
+                },
+                myError: {
+                    style: {
+                        backgroundColor: 'red',
+                        elevation: 0,
+                        borderWidth: 0,
+                    },
+                    titleStyle: {
+                        color: 'white',
+                    },
+                    textStyle: {
+                        color: 'white',
+                    },
+                },
+            }}
+        />
+    </Provider>
+);
+```
+
+```javascript
+import { Button, showToast } from 'tit-ui'
+
+//...
+
+return (
+    <Button
+        text="message"
+        onPress={() => {
+            showToast({
+                text: 'Everything fine',
+                duration: 20000,
+                theme: 'mySuccess',
+                title: 'Success',
+            });
+            setTimeout(() => {
+                showToast({
+                    text: 'Something went wrong',
+                    duration: 20000,
+                    theme: 'myError',
+                    title: 'Error',
+                });
+            }, 100);
+        }}
+    />
+)
+```
+
+<img width="35%" src="./images/taost/custom-thems.jpg"/>
+
+Use your custom toast message, like this: 
+
+```javascript
+import { Provider } from 'tit-ui'
+
+type GlodalState = {
+  count: number;
+  name: string;
+};
+
+//...
+
+const initValue = {
+    count: 0, 
+    name: ''
+} as GlodalState
+
+return (
+    <Provider<GlodalState> initValue={initValue}>
+        <App />
+        <Toast
+            maxToShow={4}
+            duration={2000}
+            renderToast={({style, textStyle, text, title, removeToast, id}) => (
+            <View style={style}>
+                <Text style={[textStyle, {fontSize: 21}]}>{title}</Text>
+                <Text style={textStyle}>{text}</Text>
+                <View
+                style={{
+                    width: '100%',
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    marginTop: 12,
+                }}>
+                <Button
+                    text="Ok"
+                    onPress={() => removeToast(id)}
+                    style={{width: '48%'}}
+                />
+                <Button
+                    text="Cancel"
+                    onPress={() => removeToast(id)}
+                    style={{width: '48%'}}
+                />
+                </View>
+            </View>
+            )}
+        />
+    </Provider>
+);
+```
+
+Or like this:
+
+```javascript
+import { Button, showToast } from 'tit-ui'
+
+//...
+
+return (
+    <Button
+        text="message"
+        onPress={() => {
+          showToast({
+            text: 'Do you want it?',
+            duration: 'infinite',
+            title: 'Confirm',
+            closeOnTap: false,
+            renderToast: ({style, textStyle, text, title, removeToast, id}) => (
+              <View style={style}>
+                <Text style={[textStyle, {fontSize: 21}]}>{title}</Text>
+                <Text style={textStyle}>{text}</Text>
+                <View
+                  style={{
+                    width: '100%',
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    marginTop: 12,
+                  }}>
+                  <Button
+                    text="Ok"
+                    onPress={() => removeToast(id)}
+                    style={{width: '48%'}}
+                  />
+                  <Button
+                    text="Cancel"
+                    onPress={() => removeToast(id)}
+                    style={{width: '48%'}}
+                  />
+                </View>
+              </View>
+            ),
+          });
+        }}
+    />
+)
+```
+
+<img width="35%" src="./images/taost/custom-toast.jpg"/>
+
+#### Toast Props
+Name | Description | Default | Type
+------|-------------|----------|-----------
+maxToShow | property to conrol messages count that will display on sceen | 3 | number;
+duration | message displaying duration in milliseconds | 3000 | number or 'infinite';
+themes | themes of messages | DefaultThems type | Theme type;
+renderToast | function to render custom toast | undefined | (props: RenderToastProps) => ReactNode;
+#### showToast
+Name | Description | Default | Type
+------|-------------|----------|-----------
+text | text of the message | undefined | string
+title | title of the message | undefined | string
+theme | key of theme | undefined | string 
+duration | message displaying duration in milliseconds | 3000 | number or 'infinite';
+closeOnTap | if this property is true message will close on tap | true | boolean
+renderToast | function to render custom toast | undefined | (props: RenderToastProps) => ReactNode;
+
 ### Functions
 - **_normalize_** - is a function which normalizes the font size of the text relative to the screen size.
 
@@ -721,7 +1027,8 @@ const styles = StyleSheet.create({
 });
 ```
 
-- **_hexToRgba_** - is a function that can convert color hex value to rgb or rgba.
+- **_hexToRgba_** - is a function that can convert color hex value to rgb or rgba. To use it:
+
 
 ```javascript
 import { hexToRgba } from 'tit-ui'

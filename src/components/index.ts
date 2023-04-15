@@ -8,4 +8,5 @@ export * from "./picker";
 export * from "./radioButton";
 export * from "./slider";
 export * from "./switch";
-export * from './tag'
+export * from "./tag";
+export * from "./toast";

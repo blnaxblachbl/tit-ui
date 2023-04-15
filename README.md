@@ -700,7 +700,7 @@ useStateValue | return states and function to change it | [state: object, setSta
 ### Toast 
 This is the toast component to display global messages.
 
-1. **Render Toast component** - Put Toast component on the root file.
+1. **Render Toast component** - Put Toast component in the root file.
 
 ```javascript
 import { Provider } from 'tit-ui'
@@ -728,7 +728,7 @@ return (
 );
 ```
 
-1. **Display the message** - Call showToast function to disaplay the message.
+1. **Display the message** - Call showToast function to disaplay a message.
 
 ```javascript
 import { Button, showToast } from 'tit-ui'
@@ -796,9 +796,9 @@ return (
 )
 ```
 
-<img width="35%" src="./gifs/toast.gif"/>
+<img width="35%" src="./gifs/toasts.gif"/>
 
-<img width="35%" src="./images/toast/default-thems.gif"/>
+<img width="35%" src="./images/toast/default-thems.jpg"/>
 
 You can provide custom themes. Provide thems to the Toast component props: 
 
@@ -884,9 +884,9 @@ return (
 )
 ```
 
-<img width="35%" src="./images/taost/custom-thems.jpg"/>
+<img width="35%" src="./images/toast/custom-thems.jpg"/>
 
-Use your custom toast message, like this: 
+You can use your custom toast message, like this: 
 
 ```javascript
 import { Provider } from 'tit-ui'
@@ -984,7 +984,7 @@ return (
 )
 ```
 
-<img width="35%" src="./images/taost/custom-toast.jpg"/>
+<img width="35%" src="./images/toast/custom-toast.jpg"/>
 
 #### Toast Props
 Name | Description | Default | Type

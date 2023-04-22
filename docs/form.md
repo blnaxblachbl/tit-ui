@@ -10,7 +10,7 @@ Form is wrapper component that can return all named components value like web fo
 
 4. **Provide a "onSubmit" function** - Provide a function in "onSubmit" props of Form compoent.
 
-Thats it! Your form is ready. If you want to use your own component in Form, you should modify your component like [this](https://blnaxblachbl.github.io/tit-ui-docs/custom-form-item).
+Thats it! Your form is ready. If you want to use your own component in Form, you should modify your component like [this](https://blnaxblachbl.github.io/tit-ui-docs?page=custom-form-item).
 
 ```tsx
 import {

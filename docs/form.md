@@ -21,28 +21,39 @@ import {
   Switch,
   Button,
   FormHandler,
+  FormSubmitArgs,
 } from "tit-ui";
 
 const formRef = useRef<FormHandler>(null);
 
+type InitValues = {
+  name: string;
+  surname: string;
+  switch?: boolean;
+} 
+
+const initValues: InitValues = {
+  name: "Tit",
+  surname: "Hardwood",
+  switch: true,
+}
+
+const onSubmit = ({data, errors}: FormSubmitArgs<InitValues>) => {
+  // result contains "data" and "errors"
+  if (data) {
+    //data will be "null" if form get errors
+    console.log('result', data);
+  }
+  if (errors) {
+    console.log('errors', errors);
+  }
+};
+
 return (
-  <Form
+  <Form<InitValues>
     ref={formRef}
-    onSubmit={({ data, errors }) => {
-      // result contains "data" and "errors"
-      if (data) {
-        //data will be "null" if form get errors
-        console.log("data", data);
-      }
-      if (errors) {
-        console.log("errors", errors);
-      }
-    }}
-    initValues={{
-      name: "Tit",
-      surname: "Hardwood",
-      switch: true,
-    }}
+    onSubmit={onSubmit}
+    initValues={initValues}
   >
     <View
       style={{

@@ -1,108 +1,122 @@
 import {
   Children,
-  cloneElement,
   useCallback,
   useRef,
   forwardRef,
   isValidElement,
   useImperativeHandle,
   ReactNode,
-} from "react";
-import { View } from "react-native";
+  ReactElement,
+  Ref,
+  cloneElement,
+} from 'react';
+import {View} from 'react-native';
 
-import { styles } from "./styles";
-import { AnyObject, FormHandler, FormProps } from "./types";
+import {styles} from './styles';
+import {FormHandler, FormProps, Errors} from './types';
 
-export * from "./types";
+export * from './types';
 
-export const Form = forwardRef<FormHandler, FormProps>(
-  ({ children, style, onSubmit = () => {}, initValues }, formRef) => {
-    const nodes = useRef(new Map()).current;
+const FormCompoent = <T extends object>(
+  {children, style, onSubmit = () => {}, initValues}: FormProps<T>,
+  formRef: Ref<FormHandler>,
+) => {
+  const nodes = useRef(new Map()).current;
 
-    const submit = useCallback(() => {
-      let data: AnyObject = {};
-      let errors: AnyObject = {};
-      const keys = [...nodes.keys()];
-      keys.forEach((key) => {
-        const node = nodes.get(key);
-        if (node) {
-          const { ref, props } = node;
-          data[key] = ref.value;
-          if (props.required && !ref.value) {
-            errors[key] = `${key} is required`;
-          }
-        }
-      });
-      const getErrors = Object.keys(errors).length > 0;
-      onSubmit({
-        data: getErrors ? null : data,
-        errors: getErrors ? errors : null,
-      });
-    }, [onSubmit, nodes]);
-
-    const renderChild = useCallback((child: ReactNode): ReactNode => {
-      if (isValidElement(child)) {
-        if (child.props.name) {
-          const key = child.props.name;
-          let initValue: AnyObject;
-          if (initValues) {
-            const value = initValues[key];
-            if (value) {
-              initValue = value;
-            }
-          }
-          const Child = forwardRef((props, ref) =>
-            cloneElement(child, { ...props, initValue, ref } as AnyObject)
-          );
-          return (
-            <Child
-              key={key}
-              ref={(r) => {
-                //@ts-ignore
-                if (child.ref) {
-                  //@ts-ignore
-                  child.ref(r);
-                }
-                nodes.set(key, { ref: r, props: child.props });
-              }}
-            />
-          );
-        }
-        if (child.props.type && child.props.type === "submit") {
-          return cloneElement(
-            child,
-            { ...child.props, onPress: submit },
-            child.props.children
-          );
-        }
-        if (child.props.children) {
-          let nextChilds;
-          if (Children.count(child.props.children) > 1) {
-            nextChilds = Children.map(child.props.children, (nextChild) =>
-              renderChild(nextChild)
-            );
-          }
-          if (Children.count(child.props.children) === 1) {
-            nextChilds = renderChild(child.props.children);
-          }
-          return cloneElement(child, child.props, nextChilds);
+  const submit = useCallback(() => {
+    let data: Partial<T> = {};
+    let errors: Errors<T> = {};
+    const keys = [...nodes.keys()];
+    keys.forEach((key: keyof T) => {
+      const node = nodes.get(key);
+      if (node) {
+        const {ref, props} = node;
+        const {required = false} = props;
+        data[key] = ref.value;
+        if (required && !ref.value) {
+          errors[key] = `${String(key)} is required`;
         }
       }
-      return child;
-    }, []);
+    });
+    const getErrors = Object.keys(errors).length > 0;
+    onSubmit({
+      data: getErrors ? null : (data as T),
+      errors: getErrors ? errors : null,
+    });
+  }, [onSubmit, nodes]);
 
-    useImperativeHandle(
-      formRef,
-      () => ({
-        submit,
-      }),
-      [submit]
-    );
+  const renderChild = useCallback((child: ReactNode): ReactNode => {
+    if (isValidElement(child)) {
+      if (child.props.name) {
+        const key = child.props.name;
+        let initValue;
+        if (initValues) {
+          const value = initValues[key as keyof T];
+          if (value) {
+            initValue = value;
+          }
+        }
+        child.props = {
+          ...child.props,
+          initValue,
+        };
+        return cloneElement(child, {
+          ...child.props,
+          initValue,
+          //@ts-ignore
+          ref: childRef => {
+            //@ts-ignore
+            nodes.set(key, {ref: childRef, props: child.props});
+            //@ts-ignore
+            if (child.ref && typeof child.ref === 'function') {
+              //@ts-ignore
+              child.ref(childRef);
+            }
+            //@ts-ignore
+            if (child.ref && typeof child.ref === 'object') {
+              //@ts-ignore
+              child.ref.current = childRef;
+            }
+          },
+        });
+      }
+      if (child.props.type && child.props.type === 'submit') {
+        child.props = {
+          ...child.props,
+          onPress: submit,
+        };
+      }
+      if (child.props.children) {
+        let nextChilds;
+        if (Children.count(child.props.children) > 1) {
+          nextChilds = Children.map(child.props.children, nextChild =>
+            renderChild(nextChild),
+          );
+        }
+        if (Children.count(child.props.children) === 1) {
+          nextChilds = renderChild(child.props.children);
+        }
+        child.props.children = nextChilds;
+      }
+    }
+    return child;
+  }, [onSubmit, initValues]);
 
-    return (
-      <View style={[styles.container, style]}>
-        {Children.map(children, (child) => renderChild(child))}
-      </View>
-    );
-  }
-);
+  useImperativeHandle(
+    formRef,
+    () => ({
+      submit,
+    }),
+    [submit],
+  );
+
+  return (
+    <View style={[styles.container, style]}>
+      {Children.map(children, child => renderChild(child))}
+    </View>
+  );
+};
+
+export const Form = forwardRef(FormCompoent) as <T extends object>(
+  props: FormProps<T> & {ref?: Ref<FormHandler>},
+) => ReactElement;

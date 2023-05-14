@@ -1,4 +1,4 @@
-import { RefObject, ReactNode } from "react";
+import { RefObject, ReactNode, Ref } from "react";
 import {
   TextInputProps,
   StyleProp,
@@ -28,8 +28,8 @@ export interface InputProps extends TextInputProps {
 }
 
 export type InputHandler = {
-  inputRef: RefObject<TextInput>;
-  containerRef: RefObject<View>;
+  inputRef: TextInput;
+  containerRef: View;
   focused: boolean;
   value: string;
   setValue: (text: string) => void;

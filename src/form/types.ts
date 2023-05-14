@@ -1,15 +1,24 @@
-import { ReactNode } from "react";
-import { StyleProp, ViewStyle } from "react-native";
+import {ReactNode} from 'react';
+import {StyleProp, ViewStyle} from 'react-native';
 
-export type AnyObject = { [name: string]: any };
+export type AnyObject = {[name: string]: any};
 
-export type FormProps = {
+export type FormSubmitArgs<T> = {
+  data: T | null;
+  errors: Errors<T> | null;
+};
+
+export type FormProps<T> = {
   children: ReactNode;
   style?: StyleProp<ViewStyle>;
-  onSubmit: (args: { data: object | null; errors: object | null }) => void;
-  initValues: AnyObject | undefined;
+  onSubmit: (args: FormSubmitArgs<T>) => void;
+  initValues: T | undefined;
 };
 
 export type FormHandler = {
   submit: () => void;
+};
+
+export type Errors<T> = {
+  [K in keyof T]?: string;
 };

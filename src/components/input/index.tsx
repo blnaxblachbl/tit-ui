@@ -40,13 +40,15 @@ export const Input = forwardRef<InputHandler, InputProps>(
       required = false,
       requiredTextStyle,
       requiredText = "*",
+      onChangeText = () => {},
       ...props
     },
     ref
   ) => {
-    const refs = useRef(new Map()).current;
-    const [focused, setFocused] = useState(autoFocus);
-    const [_value, setValue] = useState(initValue);
+    const containerRef = useRef<View>(null);
+    const inputRef = useRef<TextInput>(null);
+    const labelRef = useRef<Text>(null);
+    const [_value, setValue] = useState<string>(initValue);
 
     const _containerStyle = useMemo(
       () => [styles.container, containerStyle],
@@ -62,59 +64,51 @@ export const Input = forwardRef<InputHandler, InputProps>(
     const onFocusInput = useCallback(
       (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
         onFocus(e);
-        setFocused(true);
-        refs.get("input-container").setNativeProps({
+        containerRef.current?.setNativeProps({
           style: {
             ..._inputContainerStyle,
             borderColor: focusedBorderColor,
           },
         });
-        const labelRef = refs.get("label");
-        if (labelRef) {
-          refs.get("label").setNativeProps({
-            style: {
-              ..._labelStyle,
-              color: focusedLabelColor,
-            },
-          });
-        }
+        labelRef.current?.setNativeProps({
+          style: {
+            ..._labelStyle,
+            color: focusedLabelColor,
+          },
+        });
       },
-      [onFocus, setFocused, refs, _inputContainerStyle, _labelStyle]
+      [onFocus, labelRef.current, _inputContainerStyle, _labelStyle]
     );
 
     const onBlurInput = useCallback(
       (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
         onBlur(e);
-        setFocused(false);
-        refs.get("input-container").setNativeProps({
+        containerRef.current?.setNativeProps({
           style: _inputContainerStyle,
         });
-        const labelRef = refs.get("label");
-        if (labelRef) {
-          labelRef.setNativeProps({
-            style: _labelStyle,
-          });
-        }
+        labelRef.current?.setNativeProps({
+          style: _labelStyle,
+        });
       },
-      [onBlur, setFocused, refs, _inputContainerStyle, _labelStyle]
+      [onBlur, labelRef.current, _inputContainerStyle, _labelStyle]
     );
 
     useImperativeHandle(
       ref,
       () => ({
-        inputRef: refs.get("input"),
-        containerRef: refs.get("input-container"),
-        focused,
+        inputRef: inputRef.current,
+        containerRef: containerRef.current,
+        focused: inputRef.current?.isFocused(),
         value: _value,
         setValue: setValue,
       }),
-      [refs, focused, _value]
+      [_value, inputRef.current, containerRef.current]
     );
 
     return (
-      <View ref={(r) => refs.set("container", r)} style={_containerStyle}>
+      <View ref={containerRef} style={_containerStyle}>
         {label && (
-          <Text ref={(r) => refs.set("label", r)} style={_labelStyle}>
+          <Text ref={labelRef} style={_labelStyle}>
             <>
               {label}
               {required && (
@@ -125,19 +119,19 @@ export const Input = forwardRef<InputHandler, InputProps>(
             </>
           </Text>
         )}
-        <View
-          ref={(r) => refs.set("input-container", r)}
-          style={_inputContainerStyle}
-        >
+        <View style={_inputContainerStyle}>
           {Left}
           <TextInput
             value={_value}
-            ref={(r) => refs.set("input", r)}
+            ref={inputRef}
             style={[styles.input, inputStyle]}
             onFocus={onFocusInput}
             onBlur={onBlurInput}
             autoFocus={autoFocus}
-            onChangeText={(text) => setValue(text)}
+            onChangeText={(text) => {
+              setValue(text);
+              onChangeText(text);
+            }}
             {...props}
           />
           {Right}

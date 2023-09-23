@@ -27,20 +27,24 @@ export const Switch = forwardRef<SwitchHandler, SwitchProps>(
       containerStyle,
       circleStyle,
       textStyle,
-      enabledCircleColor = "#fff",
-      disabledCircleColor = "#fff",
-      enabledBackgroundColor = "#4666ff",
-      disabledBackgroundColor = "#ccc",
+      enabledCircleColor,
+      disabledCircleColor,
+      enabledBackgroundColor,
+      disabledBackgroundColor,
       enabledText = "",
       disabledText = "",
       onChangeState = () => {},
       initValue = false,
       value,
+      theme,
+      themes = {},
     },
     ref
   ) => {
     const refs = useRef(new Map()).current;
     const [active, setActive] = useState(initValue);
+
+    const _theme = useMemo(() => themes[theme], [theme, themes]);
 
     const _value = useMemo(
       () => (typeof value === "boolean" ? value : active),
@@ -65,14 +69,25 @@ export const Switch = forwardRef<SwitchHandler, SwitchProps>(
       () => (!_value ? "flex-start" : "flex-end"),
       [_value]
     );
-    const backgroundColor = useMemo(
-      () => (_value ? enabledBackgroundColor : disabledBackgroundColor),
-      [_value, enabledBackgroundColor, disabledBackgroundColor]
-    );
-    const switchCircleColor = useMemo(
-      () => (_value ? enabledCircleColor : disabledCircleColor),
-      [_value, enabledCircleColor, disabledCircleColor]
-    );
+
+    const backgroundColor = useMemo(() => {
+      const _enabledBackgroundColor =
+        enabledBackgroundColor || _theme?.enabledBackgroundColor || "#4666ff";
+      const _disabledBackgroundColor =
+        disabledBackgroundColor || _theme?.disabledBackgroundColor || "#ccc";
+
+      return _value ? _enabledBackgroundColor : _disabledBackgroundColor;
+    }, [_value, enabledBackgroundColor, disabledBackgroundColor]);
+
+    const switchCircleColor = useMemo(() => {
+      const _enabledCircleColor =
+        enabledCircleColor || _theme?.enabledCircleColor || "#fff";
+      const _disabledCircleColor =
+        disabledCircleColor || _theme?.disabledCircleColor || "#fff";
+
+      return _value ? _enabledCircleColor : _disabledCircleColor;
+    }, [_value, enabledCircleColor, disabledCircleColor, _theme]);
+
     const circleText = useMemo(
       () => (_value ? enabledText : disabledText),
       [_value, enabledText, disabledText]
@@ -94,24 +109,28 @@ export const Switch = forwardRef<SwitchHandler, SwitchProps>(
           ref={(r) => refs.set("container", r)}
           style={[
             styles.switchContainerStyle,
+            _theme?.containerStyle,
+            containerStyle,
             {
               alignItems: switchContainerAlign,
               backgroundColor,
             },
-            containerStyle,
           ]}
         >
           <View
             style={[
               styles.switchCircleStyle,
+              _theme?.circleStyle,
+              circleStyle,
               {
                 backgroundColor: switchCircleColor,
               },
-              circleStyle,
             ]}
           >
             {circleText ? (
-              <Text style={[styles.switchTextStyle, textStyle]}>
+              <Text
+                style={[styles.switchTextStyle, _theme?.textStyle, textStyle]}
+              >
                 {circleText}
               </Text>
             ) : null}

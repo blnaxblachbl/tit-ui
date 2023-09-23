@@ -37,8 +37,11 @@ export const Image = forwardRef<RNImage, TImageProps>(
       imageStyle,
 
       loadingContainerStyle,
-      loadingColor = "#000",
-      loadingSize = "large",
+      loadingColor,
+      loadingSize,
+
+      theme,
+      themes = {},
 
       onLoadStart = () => {},
       onLoadEnd = () => {},
@@ -49,6 +52,7 @@ export const Image = forwardRef<RNImage, TImageProps>(
   ) => {
     const pan = useRef(new Animated.ValueXY({ x: 0, y: 0 })).current;
     const scale = useRef(new Animated.Value(1)).current;
+    const _theme = useMemo(() => themes[theme], [theme, themes]);
     let offsetDistance = 0;
 
     const [_source, setSource] = useState(source);
@@ -125,22 +129,27 @@ export const Image = forwardRef<RNImage, TImageProps>(
     const _containerStyle = useMemo(
       () => [
         styles.container,
+        _theme?.containerStyle,
         {
           transform: [{ translateX: pan.x }, { translateY: pan.y }, { scale }],
         },
         containerStyle,
       ],
-      [containerStyle, pan, scale]
+      [containerStyle, pan, scale, _theme]
     );
 
     const _imageStyle = useMemo(
-      () => [styles.imageStyle, imageStyle],
-      [imageStyle]
+      () => [styles.imageStyle, _theme?.imageStyle, imageStyle],
+      [imageStyle, _theme]
     );
 
     const _loadingContainerStyle = useMemo(
-      () => [styles.loading, loadingContainerStyle],
-      [loadingContainerStyle]
+      () => [
+        styles.loading,
+        _theme?.loadingContainerStyle,
+        loadingContainerStyle,
+      ],
+      [loadingContainerStyle, _theme]
     );
 
     return (
@@ -158,8 +167,8 @@ export const Image = forwardRef<RNImage, TImageProps>(
           <View style={_loadingContainerStyle}>
             <ActivityIndicator
               animating
-              size={loadingSize}
-              color={loadingColor}
+              size={loadingSize || _theme?.loadingSize || 'large'}
+              color={loadingColor || _theme?.loadingColor || '#000'}
             />
           </View>
         ) : null}

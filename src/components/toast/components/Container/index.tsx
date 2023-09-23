@@ -8,7 +8,7 @@ import {
   ToastProps,
   ToastMessage,
   MessageOption,
-  Themes,
+  ToastThemes,
 } from '../../types';
 import {styles} from './styles';
 
@@ -30,7 +30,7 @@ const Container = forwardRef<ToastHandler, ToastProps>(
         warning: {
           style: styles.defaultWarn,
         },
-      } as Themes,
+      } as ToastThemes,
       style,
       textStyle,
       titleStyle,

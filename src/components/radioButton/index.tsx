@@ -23,14 +23,26 @@ export const Radio = forwardRef<RadioButtonHandler, RadioButtonProps>(
       value = undefined,
       onPress = () => {},
       title,
-      activeColor = "#494043",
-      inactiveColor = "#494043",
+      activeColor,
+      inactiveColor,
       initValue = false,
+      theme,
+      themes = {},
     },
     ref
   ) => {
     const refs = useRef(new Map()).current;
     const [innerValue, setInnerValue] = useState<boolean>(initValue);
+
+    const _theme = useMemo(() => themes[theme], [theme, themes]);
+    const _activeColor = useMemo(
+      () => activeColor || _theme?.activeColor || "#494043",
+      [_theme, activeColor]
+    );
+    const _inactiveColor = useMemo(
+      () => inactiveColor || _theme?.inactiveColor || "#494043",
+      [_theme, inactiveColor]
+    );
 
     const _value = useMemo(
       () => (typeof value === "boolean" ? value : innerValue),
@@ -47,28 +59,30 @@ export const Radio = forwardRef<RadioButtonHandler, RadioButtonProps>(
     const _circleStyle = useMemo(
       () => [
         styles.radioButton,
+        _theme?.circleStyle,
         circleStyle,
         {
-          borderColor: _value ? activeColor : inactiveColor,
+          borderColor: _value ? _activeColor : _inactiveColor,
         },
       ],
-      [circleStyle, _value, activeColor, inactiveColor]
+      [circleStyle, _value, _activeColor, _inactiveColor, _theme]
     );
 
     const _innerCircleStyle = useMemo(
       () => [
         styles.radioCircle,
+        _theme?.innerCircleStyle,
         innerCircleStyle,
         {
-          backgroundColor: _value ? activeColor : inactiveColor,
+          backgroundColor: _value ? _activeColor : _inactiveColor,
         },
       ],
-      [innerCircleStyle, _value, activeColor, inactiveColor]
+      [innerCircleStyle, _value, _activeColor, _inactiveColor, _theme]
     );
 
     const _titleStyle = useMemo(
-      () => [styles.radioText, titleStyle],
-      [titleStyle]
+      () => [styles.radioText, _theme?.titleStyle, titleStyle],
+      [titleStyle, _theme]
     );
 
     useImperativeHandle(
@@ -85,7 +99,7 @@ export const Radio = forwardRef<RadioButtonHandler, RadioButtonProps>(
       <TouchableWithoutFeedback onPress={_onPress}>
         <View
           ref={(r) => refs.set("container", r)}
-          style={[styles.container, containerStyle]}
+          style={[styles.container, _theme?.containerStyle, containerStyle]}
         >
           <View style={_circleStyle}>
             {_value ? <View style={_innerCircleStyle} /> : null}

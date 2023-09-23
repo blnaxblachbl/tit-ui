@@ -7,7 +7,9 @@ import { BadgeProps } from "./types";
 export * from "./types";
 
 export const Badge = forwardRef<View, BadgeProps>(
-  ({ style, textStyle, badge = 0 }, ref) => {
+  ({ style, textStyle, badge = 0, theme, themes = {} }, ref) => {
+    const _theme = useMemo(() => themes[theme], [theme, themes]);
+
     const _badge = useMemo(() => {
       if (typeof badge == "number") {
         return badge > 99 ? "99+" : badge;
@@ -23,8 +25,11 @@ export const Badge = forwardRef<View, BadgeProps>(
     }
 
     return (
-      <View ref={ref} style={[styles.badge, style]}>
-        <Text numberOfLines={1} style={[styles.badgeText, textStyle]}>
+      <View ref={ref} style={[styles.badge, _theme?.style, style]}>
+        <Text
+          numberOfLines={1}
+          style={[styles.badgeText, _theme?.textStyle, textStyle]}
+        >
           {_badge}
         </Text>
       </View>

@@ -13,6 +13,8 @@ export interface SliderProps extends ViewProps {
   CustomCircle?: ReactElement;
   initValue?: number;
   name?: string;
+  theme?: string;
+  themes?: SliderThemesObject;
 }
 
 export type SliderSetValueOpotion = {
@@ -23,4 +25,14 @@ export type SliderHandler = {
   value: number;
   setValue?: (value: number, options?: SliderSetValueOpotion) => void;
   containerRef: View | null;
+};
+
+export type SliderTheme = {
+  style?: StyleProp<ViewStyle>;
+  trackStyle?: StyleProp<ViewStyle>;
+  circleStyle?: StyleProp<ViewStyle>;
+  circleSize?: number;
+};
+export type SliderThemesObject = {
+  [name: string]: SliderTheme;
 };

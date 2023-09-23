@@ -20,7 +20,7 @@ export const Slider = forwardRef<SliderHandler, SliderProps>(
       style,
       trackStyle,
       circleStyle,
-      circleSize = 30,
+      circleSize,
       minValue = 0,
       maxValue = 100,
       circleIsScale = true,
@@ -28,6 +28,8 @@ export const Slider = forwardRef<SliderHandler, SliderProps>(
       onValueChange = (value: number) => {},
       CustomCircle = null,
       initValue = minValue,
+      theme,
+      themes = {},
     },
     ref
   ) => {
@@ -36,7 +38,12 @@ export const Slider = forwardRef<SliderHandler, SliderProps>(
     const lastValue = useRef<number>(initValue);
     const containerRef = useRef<View>(null);
     const [containerWidth, setContainerWidth] = useState<number>(0);
-    const offset = useMemo(() => circleSize / 2, [circleSize]);
+
+    const _theme = useMemo(() => themes[theme], [theme, themes]);
+    const offset = useMemo(() => {
+      const size = circleSize || _theme?.circleSize || 30;
+      return size / 2;
+    }, [circleSize, _theme]);
     const step = useMemo(
       () => containerWidth / (maxValue - minValue),
       [containerWidth, maxValue, minValue]
@@ -133,23 +140,24 @@ export const Slider = forwardRef<SliderHandler, SliderProps>(
         <View
           style={[
             styles.circle,
+            _theme?.circleStyle,
             circleStyle,
             {
-              width: circleSize,
-              height: circleSize,
+              width: circleSize || _theme?.circleSize || 30,
+              height: circleSize || _theme?.circleSize || 30,
             },
           ]}
         />
       );
-    }, [CustomCircle, circleSize, circleStyle]);
+    }, [CustomCircle, circleSize, circleStyle, _theme]);
 
     return (
       <View
         onLayout={onContainerLayout}
         ref={containerRef}
-        style={[styles.container, style]}
+        style={[styles.container, _theme?.style, style]}
       >
-        <View style={[styles.track, trackStyle]} />
+        <View style={[styles.track, _theme?.trackStyle, trackStyle]} />
         <Animated.View
           {...panResponder.panHandlers}
           onTouchStart={onTouchStart}

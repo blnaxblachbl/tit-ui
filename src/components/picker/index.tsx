@@ -43,7 +43,7 @@ const getLabel = (data: Data | undefined) => {
     return data;
   }
   if (typeof data === "object") {
-    return data.value;
+    return data?.title;
   }
   return "";
 };
@@ -58,7 +58,7 @@ export const Picker = forwardRef<PickerHandler, PickerProps>(
       labelStyle,
       noteStyle,
       textStyle,
-      placeholderTextColor = "gray",
+      placeholderTextColor,
       value,
       onPick = () => {},
       data = [],
@@ -74,6 +74,8 @@ export const Picker = forwardRef<PickerHandler, PickerProps>(
       required = false,
       requiredTextStyle,
       requiredText = "*",
+      theme,
+      themes = {},
     },
     ref
   ) => {
@@ -82,8 +84,12 @@ export const Picker = forwardRef<PickerHandler, PickerProps>(
     const [visible, setVisble] = useState<boolean>(false);
     const [reverse, setReverse] = useState(false);
 
+    const _theme = useMemo(() => themes[theme], [theme, themes]);
     const _value = useMemo(() => value || text, [text, value]);
-    const _textStyle = useMemo(() => [styles.value, textStyle], [textStyle]);
+    const _textStyle = useMemo(
+      () => [styles.value, _theme?.textStyle, textStyle],
+      [textStyle, _theme]
+    );
 
     const openPicker = () => {
       setVisble(true);
@@ -152,13 +158,19 @@ export const Picker = forwardRef<PickerHandler, PickerProps>(
     return (
       <View
         ref={(r) => refs.set("container", r)}
-        style={[styles.container, containerStyle]}
+        style={[styles.container, _theme?.containerStyle, containerStyle]}
       >
         {label && (
-          <Text style={[styles.label, labelStyle]}>
+          <Text style={[styles.label, _theme?.labelStyle, labelStyle]}>
             {label}
             {required && (
-              <Text style={[styles.required, requiredTextStyle]}>
+              <Text
+                style={[
+                  styles.required,
+                  _theme?.requiredTextStyle,
+                  requiredTextStyle,
+                ]}
+              >
                 {requiredText}
               </Text>
             )}
@@ -167,7 +179,7 @@ export const Picker = forwardRef<PickerHandler, PickerProps>(
         <TouchableNativeFeedback onPress={openPicker}>
           <View
             ref={(r) => refs.set("picker", r)}
-            style={[styles.picker, pickerStyle]}
+            style={[styles.picker, _theme?.pickerStyle, pickerStyle]}
           >
             {Left}
             {_value ? (
@@ -175,14 +187,28 @@ export const Picker = forwardRef<PickerHandler, PickerProps>(
                 {getLabel(_value)}
               </Text>
             ) : (
-              <Text style={[..._textStyle, { color: placeholderTextColor }]}>
+              <Text
+                style={[
+                  ..._textStyle,
+                  {
+                    color:
+                      placeholderTextColor ||
+                      _theme?.placeholderTextColor ||
+                      "gray",
+                  },
+                ]}
+              >
                 {placeholder}
               </Text>
             )}
             {Right}
           </View>
         </TouchableNativeFeedback>
-        {note && <Text style={[styles.note, noteStyle]}>{note}</Text>}
+        {note && (
+          <Text style={[styles.note, _theme?.noteStyle, noteStyle]}>
+            {note}
+          </Text>
+        )}
         <Modal
           visible={visible}
           onRequestClose={() => {
@@ -202,6 +228,7 @@ export const Picker = forwardRef<PickerHandler, PickerProps>(
               pickItem={pickItem}
               reverse={reverse}
               _value={_value}
+              _theme={_theme}
               {...listProps}
             />
           </View>
@@ -223,6 +250,7 @@ const List = forwardRef<VirtualizedList<Data>, ListProps>(
       selectedItemStyle,
       emptyText = "There is nothing here",
       itemStyle,
+      _theme,
       ...listProps
     },
     ref
@@ -234,14 +262,24 @@ const List = forwardRef<VirtualizedList<Data>, ListProps>(
       }
       let selectedStyle = undefined;
       if (selected) {
-        selectedStyle = selectedItemStyle || styles.selectedItem;
+        selectedStyle =
+          selectedItemStyle ||
+          _theme?.listStyles?.selectedItemStyle ||
+          styles.selectedItem;
       }
       return (
         <TouchableNativeFeedback
           onPress={() => pickItem(item)}
           key={`picker-item-${index}`}
         >
-          <Text style={[styles.listItemText, itemStyle, selectedStyle]}>
+          <Text
+            style={[
+              styles.listItemText,
+              _theme?.listStyles?.itemStyle,
+              itemStyle,
+              selectedStyle,
+            ]}
+          >
             {getLabel(item)}
           </Text>
         </TouchableNativeFeedback>
@@ -251,8 +289,12 @@ const List = forwardRef<VirtualizedList<Data>, ListProps>(
     return (
       <VirtualizedList
         ref={ref}
-        style={[styles.list, style]}
-        contentContainerStyle={[styles.listContainer, contentContainerStyle]}
+        style={[styles.list, _theme?.listStyles?.style, style]}
+        contentContainerStyle={[
+          styles.listContainer,
+          _theme?.listStyles?.contentContainerStyle,
+          contentContainerStyle,
+        ]}
         getItem={(data, index) => data[index]}
         getItemCount={(data) => data.length}
         renderItem={_renderImtem}

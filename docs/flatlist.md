@@ -1,4 +1,5 @@
-## FlatList 
+## FlatList
+
 This is modified React-Native FlatList component.
 
 ```javascript
@@ -30,11 +31,14 @@ return (
 ![alt flatlist](https://github.com/blnaxblachbl/tit-ui/blob/main/gifs/flat-list.gif?raw=true)
 
 #### Props
-Name | Description | Default | Type
-------|-------------|----------|-----------
-loading | if this property is true refresh controll or LoadingConponent is showing up | false | bool
-onRefresh | RefreshControl onRefresh property | () => {} | function
-LoadinComponent | component that will be showing up instead of ListEmptyComponent if loading true | null | React-Native component
-useRefreshControl | if true used RefreshControll component to FlatList | true | bool
-emptyComponenText | Default ListEmptyComponent text | "There is nothing here" | string
-and all FlatList component props |  |  | any
+
+| Name                             | Description                                                                                                                               | Default                 | Type                   |
+| -------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ----------------------- | ---------------------- |
+| loading                          | if this property is true refresh controll or LoadingConponent is showing up                                                               | false                   | bool                   |
+| onRefresh                        | RefreshControl onRefresh property                                                                                                         | () => {}                | function               |
+| LoadinComponent                  | component that will be showing up instead of ListEmptyComponent if loading true                                                           | null                    | React-Native component |
+| useRefreshControl                | if true used RefreshControll component to FlatList                                                                                        | true                    | bool                   |
+| emptyComponenText                | Default ListEmptyComponent text                                                                                                           | "There is nothing here" | string                 |
+| and all FlatList component props |                                                                                                                                           |                         | any                    |
+| themes                           | provide an object with all style props to configure your styled by theme. to lern more click [here](https://tit-ui.github.io/docs/themes) | undefined               | FlatListThemesObject   |
+| theme                            | name of procided theme                                                                                                                    | undefined               | string                 |

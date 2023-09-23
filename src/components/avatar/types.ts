@@ -7,6 +7,18 @@ import {
   TextStyle,
 } from "react-native";
 
+export type AvatarTheme = {
+  style?: StyleProp<ViewStyle>;
+  imageStyle?: StyleProp<ImageStyle>;
+  badgeStyle?: StyleProp<ViewStyle>;
+  badgeTextStyle?: StyleProp<TextStyle>;
+  letterStyle?: StyleProp<TextStyle>;
+};
+
+export type AvatarThemesObject = {
+  [name: string]: AvatarTheme;
+};
+
 export type AvatarProps = {
   source?: ImageSourcePropType;
   nameString?: string;
@@ -16,6 +28,8 @@ export type AvatarProps = {
   imageStyle?: StyleProp<ImageStyle>;
   badgeStyle?: StyleProp<ViewStyle>;
   badgeTextStyle?: StyleProp<TextStyle>;
-  imageProps?: ImageProps;
   letterStyle?: StyleProp<TextStyle>;
+  imageProps?: ImageProps;
+  theme?: string;
+  themes?: AvatarThemesObject;
 };

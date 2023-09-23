@@ -8,10 +8,23 @@ import {
   View,
 } from "react-native";
 
+export type InputTheme = {
+  containerStyle?: StyleProp<ViewStyle>;
+  inputContainerStyle?: StyleProp<ViewStyle>;
+  inputStyle?: StyleProp<TextStyle>;
+  labelStyle?: StyleProp<TextStyle>;
+  noteStyle?: StyleProp<TextStyle>;
+  requiredTextStyle?: StyleProp<TextStyle>;
+  focusedBorderColor?: string;
+  focusedLabelColor?: string;
+};
+export type InputThemesObject = {
+  [name: string]: InputTheme;
+};
 export interface InputProps extends TextInputProps {
   containerStyle?: StyleProp<ViewStyle>;
   inputContainerStyle?: StyleProp<ViewStyle>;
-  inputStyle?: StyleProp<ViewStyle>;
+  inputStyle?: StyleProp<TextStyle>;
   labelStyle?: StyleProp<TextStyle>;
   noteStyle?: StyleProp<TextStyle>;
   note?: string;
@@ -25,6 +38,8 @@ export interface InputProps extends TextInputProps {
   requiredTextStyle?: StyleProp<TextStyle>;
   requiredText?: string;
   name?: string;
+  theme?: string;
+  themes?: InputThemesObject;
 }
 
 export type InputHandler = {

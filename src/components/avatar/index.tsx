@@ -1,4 +1,4 @@
-import React, { forwardRef, useCallback } from "react";
+import React, { forwardRef, useCallback, useMemo } from "react";
 import { View, Text, Image, TouchableOpacity } from "react-native";
 
 import { Badge } from "../badge";
@@ -21,9 +21,13 @@ export const Avatar = forwardRef<TouchableOpacity, AvatarProps>(
       badgeTextStyle,
       imageProps,
       letterStyle,
+      themes = {},
+      theme,
     },
     ref
   ) => {
+    const _theme = useMemo(() => themes[theme], [theme, themes]);
+
     const renderImage = useCallback(() => {
       let letters = ["N", "A"];
       if (source) {
@@ -31,7 +35,7 @@ export const Avatar = forwardRef<TouchableOpacity, AvatarProps>(
           <Image
             source={source}
             resizeMode="cover"
-            style={[styles.image, imageStyle]}
+            style={[styles.image, _theme?.imageStyle, imageStyle]}
             {...imageProps}
           />
         );
@@ -42,29 +46,32 @@ export const Avatar = forwardRef<TouchableOpacity, AvatarProps>(
           .map((item) => item.slice(0, 1).toUpperCase());
       }
       return (
-        <View style={[styles.image, imageStyle]}>
+        <View style={[styles.image, _theme?.imageStyle, imageStyle]}>
           {letters.map((item, index) =>
             index < 2 ? (
-              <Text key={item + index} style={[styles.letter, letterStyle]}>
+              <Text
+                key={item + index}
+                style={[styles.letter, _theme?.letterStyle, letterStyle]}
+              >
                 {item}
               </Text>
             ) : null
           )}
         </View>
       );
-    }, [nameString, source, imageStyle, letterStyle]);
+    }, [nameString, source, imageStyle, letterStyle, _theme]);
 
     return (
       <TouchableOpacity
         ref={ref}
         onPress={onPress}
         activeOpacity={1}
-        style={[styles.container, style]}
+        style={[styles.container, _theme?.style, style]}
       >
         {renderImage()}
         <Badge
-          style={[styles.badge, badgeStyle]}
-          textStyle={badgeTextStyle}
+          style={[styles.badge, _theme?.badgeStyle, badgeStyle]}
+          textStyle={[badgeTextStyle, _theme?.badgeTextStyle]}
           badge={badge}
         />
       </TouchableOpacity>

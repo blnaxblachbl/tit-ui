@@ -1,18 +1,26 @@
-import { StyleSheet } from "react-native";
+import {StyleSheet} from 'react-native';
 
 import { normalize } from "../../functions/normalize";
 
 export const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#4666ff",
+    flexDirection: 'row',
+    backgroundColor: '#4666ff',
     borderRadius: 6,
-    alignItems: "center",
-    justifyContent: "center",
-    width: "100%",
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',
     paddingHorizontal: 12,
     height: normalize(42),
+    borderWidth: 2,
+    borderColor: 'transparent',
   },
   text: {
-    color: "#FFFFFF",
+    color: '#FFFFFF',
+    fontWeight: '500',
+    marginHorizontal: normalize(6),
+  },
+  disabled: {
+    opacity: 0.7,
   },
 });

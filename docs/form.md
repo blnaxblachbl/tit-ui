@@ -30,31 +30,27 @@ type InitValues = {
   name: string;
   surname: string;
   switch?: boolean;
-} 
+};
 
 const initValues: InitValues = {
   name: "Tit",
   surname: "Hardwood",
   switch: true,
-}
+};
 
-const onSubmit = ({data, errors}: FormSubmitArgs<InitValues>) => {
+const onSubmit = ({ data, errors }: FormSubmitArgs<InitValues>) => {
   // result contains "data" and "errors"
   if (data) {
     //data will be "null" if form get errors
-    console.log('result', data);
+    console.log("result", data);
   }
   if (errors) {
-    console.log('errors', errors);
+    console.log("errors", errors);
   }
 };
 
 return (
-  <Form<InitValues>
-    ref={formRef}
-    onSubmit={onSubmit}
-    initValues={initValues}
-  >
+  <Form<InitValues> ref={formRef} onSubmit={onSubmit} initValues={initValues}>
     <View
       style={{
         flexDirection: "row",
@@ -110,11 +106,13 @@ return (
 
 #### Props
 
-| Name       | Description                                                                | Default   | Type          |
-| ---------- | -------------------------------------------------------------------------- | --------- | ------------- |
-| ref        | reference to component                                                     | undefined | SliderHandler |
-| onSubmit   | Function that return values and errors by object ({data, errors}) => {...} | undefined | function      |
-| initValues | object of initial values of form                                           | undefined | object        |
+| Name       | Description                                                                                                                               | Default   | Type             |
+| ---------- | ----------------------------------------------------------------------------------------------------------------------------------------- | --------- | ---------------- |
+| ref        | reference to component                                                                                                                    | undefined | SliderHandler    |
+| onSubmit   | Function that return values and errors by object ({data, errors}) => {...}                                                                | undefined | function         |
+| initValues | object of initial values of form                                                                                                          | undefined | object           |
+| themes     | provide an object with all style props to configure your styled by theme. to lern more click [here](https://tit-ui.github.io/docs/themes) | undefined | FormThemesObject |
+| theme      | name of procided theme                                                                                                                    | undefined | string           |
 
 #### Methods
 

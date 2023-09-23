@@ -61,5 +61,5 @@ const App = () => {
 export default MyButton;
 ```
 
-![alt button](https://github.com/blnaxblachbl/tit-ui/blob/main/images/red-button.png?raw=true)
-![alt button](https://github.com/blnaxblachbl/tit-ui/blob/main/images/blue-button.png?raw=true)
+![alt button](https://github.com/blnaxblachbl/tit-ui/blob/main/images/red-button.jpg?raw=true)
+![alt button](https://github.com/blnaxblachbl/tit-ui/blob/main/images/blue-button.jpg?raw=true)

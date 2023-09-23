@@ -30,7 +30,7 @@ return (
 | loadingSize       | size of loading spinner                                                                                                                   | "small"                 | number or 'small' or 'large' or undefined |
 | Left              | component that will render on left side of Button component                                                                               | null                    | React Component                           |
 | Right             | component that will render on right side of Button component                                                                              | null                    | React Component                           |
-| themes            | provide an object with all style props to configure your styled by theme. to lern more click [here](https://tit-ui.github.io/docs/themes) | _check_ _code_ _bellow_ | ButtonThemesObject                        |
+| themes            | provide an object with all style props to configure your styled by theme. to lern more click [here](https://tit-ui.github.io/docs?page=themes) | _check_ _code_ _bellow_ | ButtonThemesObject                        |
 | theme             | name of procided theme                                                                                                                    | undefined               | string                                    |
 
 #### Default Theme

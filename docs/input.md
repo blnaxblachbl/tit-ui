@@ -45,7 +45,7 @@ return (
 | requiredText                      | label additation when input is required                                                                                                   | \*        | string            |
 | requiredTextStyle                 | style of "requiredText". Based on React-Native Text component                                                                             | {}        | object            |
 | and all TextInput component props |                                                                                                                                           |           | any               |
-| themes                            | provide an object with all style props to configure your styled by theme. to lern more click [here](https://tit-ui.github.io/docs/themes) | undefined | InputThemesObject |
+| themes                            | provide an object with all style props to configure your styled by theme. to lern more click [here](https://tit-ui.github.io/docs?page=themes) | undefined | InputThemesObject |
 | theme                             | name of procided theme                                                                                                                    | undefined | string            |
 
 #### Methods

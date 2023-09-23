@@ -61,7 +61,7 @@ return (
 | enabledBackgroundColor  | switch background color when it is on                                                                                                     | '#4666ff'                    | string             |
 | disabledBackgroundColor | switch background color when it is off                                                                                                    | '#ccc'                       | string             |
 | onChangeState           | callback when switch is clicked                                                                                                           | (value) => {callback(value)} | func               |
-| themes                  | provide an object with all style props to configure your styled by theme. to lern more click [here](https://tit-ui.github.io/docs/themes) | undefined                    | SwitchThemesObject |
+| themes                  | provide an object with all style props to configure your styled by theme. to lern more click [here](https://tit-ui.github.io/docs?page=themes) | undefined                    | SwitchThemesObject |
 | theme                   | name of procided theme                                                                                                                    | undefined                    | string             |
 
 #### Methods

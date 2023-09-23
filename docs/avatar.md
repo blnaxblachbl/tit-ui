@@ -45,5 +45,5 @@ return (
 | badgeTextStyle | style of the badge                                                                                                                        | {}               | style                               |
 | imageProps     | React-Native Image component props                                                                                                        | undefined        | object                              |
 | letterStyle    | style of letters of nameString when imageUrl is empty                                                                                     | {}               | style                               |
-| themes         | provide an object with all style props to configure your styled by theme. to lern more click [here](https://tit-ui.github.io/docs/themes) | undefined        | AvatarThemesObject                  |
+| themes         | provide an object with all style props to configure your styled by theme. to lern more click [here](https://tit-ui.github.io/docs?page=themes) | undefined        | AvatarThemesObject                  |
 | theme          | name of procided theme                                                                                                                    | undefined        | string                              |

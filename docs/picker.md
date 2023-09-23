@@ -44,7 +44,7 @@ return (
 | required             | boolean prop that let Form component to know that this picker is required, also add "requiredText" to label                                                                 | false            | boolean                            |
 | requiredText         | label additation when picker is required                                                                                                                                    | \*               | string                             |
 | requiredTextStyle    | style of "requiredText". Based on React-Native Text component                                                                                                               | {}               | object                             |
-| themes               | provide an object with all style props to configure your styled by theme. to lern more click [here](https://tit-ui.github.io/docs/themes)                                   | undefined        | PickerThemesObject                 |
+| themes               | provide an object with all style props to configure your styled by theme. to lern more click [here](https://tit-ui.github.io/docs?page=themes)                                   | undefined        | PickerThemesObject                 |
 | theme                | name of procided theme                                                                                                                                                      | undefined        | string                             |
 
 #### listProps

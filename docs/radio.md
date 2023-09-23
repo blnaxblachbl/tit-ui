@@ -47,7 +47,7 @@ return (
 | activeColor      | color of circles when button is checked                                                                                                   | "#494043"        | string                  |
 | inactiveColor    | color of circles when button is unchecked                                                                                                 | "#494043"        | string                  |
 | initValue        | initial value of button                                                                                                                   | false            | bool                    |
-| themes           | provide an object with all style props to configure your styled by theme. to lern more click [here](https://tit-ui.github.io/docs/themes) | undefined        | RadioButtonThemesObject |
+| themes           | provide an object with all style props to configure your styled by theme. to lern more click [here](https://tit-ui.github.io/docs?page=themes) | undefined        | RadioButtonThemesObject |
 | theme            | name of procided theme                                                                                                                    | undefined        | string                  |
 
 #### Methods

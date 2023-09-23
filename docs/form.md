@@ -111,7 +111,7 @@ return (
 | ref        | reference to component                                                                                                                    | undefined | SliderHandler    |
 | onSubmit   | Function that return values and errors by object ({data, errors}) => {...}                                                                | undefined | function         |
 | initValues | object of initial values of form                                                                                                          | undefined | object           |
-| themes     | provide an object with all style props to configure your styled by theme. to lern more click [here](https://tit-ui.github.io/docs/themes) | undefined | FormThemesObject |
+| themes     | provide an object with all style props to configure your styled by theme. to lern more click [here](https://tit-ui.github.io/docs?page=themes) | undefined | FormThemesObject |
 | theme      | name of procided theme                                                                                                                    | undefined | string           |
 
 #### Methods

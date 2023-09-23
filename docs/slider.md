@@ -50,7 +50,7 @@ return (
 | circleMaxScale | circle scale value                                                                                                                        | 1.3                          | float              |
 | CustomCircle   | component that will render instead of default circle                                                                                      | null                         | React Component    |
 | onValueChange  | callback when slider value changed                                                                                                        | (value) => {callback(value)} | func               |
-| themes         | provide an object with all style props to configure your styled by theme. to lern more click [here](https://tit-ui.github.io/docs/themes) | undefined                    | SliderThemesObject |
+| themes         | provide an object with all style props to configure your styled by theme. to lern more click [here](https://tit-ui.github.io/docs?page=themes) | undefined                    | SliderThemesObject |
 | theme          | name of procided theme                                                                                                                    | undefined                    | string             |
 
 #### Methods

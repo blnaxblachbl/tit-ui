@@ -1,4 +1,4 @@
-## Form
+## Form - deprecate, from 0.6
 
 Form is wrapper component that can return all named components value like web forms. Working with UI components of this library. If you can use web forms you know how to use this Form. All you need is:
 

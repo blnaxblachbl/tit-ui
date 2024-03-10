@@ -4,7 +4,6 @@ import {
   useImperativeHandle,
   useRef,
   useCallback,
-  useState,
 } from "react";
 import {
   TextInput,
@@ -16,6 +15,7 @@ import {
 
 import { styles } from "./styles";
 import { InputHandler, InputProps } from "./types";
+import { usePropsToStyle } from "../../hooks/usePropsToStyle";
 
 export * from "./types";
 
@@ -33,7 +33,6 @@ export const Input = forwardRef<InputHandler, InputProps>(
       Right = null,
       onBlur = () => {},
       onFocus = () => {},
-      autoFocus = false,
       focusedBorderColor,
       focusedLabelColor,
       initValue = "",
@@ -41,7 +40,7 @@ export const Input = forwardRef<InputHandler, InputProps>(
       requiredTextStyle,
       requiredText = "*",
       onChangeText = () => {},
-      theme,
+      theme = "",
       themes = {},
       ...props
     },
@@ -51,13 +50,19 @@ export const Input = forwardRef<InputHandler, InputProps>(
     const inputContainerRef = useRef<View>(null);
     const inputRef = useRef<TextInput>(null);
     const labelRef = useRef<Text>(null);
-    const [_value, setValue] = useState<string>(initValue);
+    const value = useRef<string>(initValue);
 
     const _theme = useMemo(() => themes[theme], [theme, themes]);
+    const { viewStyles, textStyles } = usePropsToStyle(props);
 
     const _containerStyle = useMemo(
-      () => [styles.container, _theme?.containerStyle, containerStyle],
-      [containerStyle, _theme]
+      () => [
+        styles.container,
+        _theme?.containerStyle,
+        containerStyle,
+        viewStyles,
+      ],
+      [containerStyle, _theme, viewStyles]
     );
     const _inputContainerStyle = useMemo(
       () => [
@@ -93,14 +98,7 @@ export const Input = forwardRef<InputHandler, InputProps>(
           },
         });
       },
-      [
-        onFocus,
-        labelRef.current,
-        inputContainerRef.current,
-        _inputContainerStyle,
-        _labelStyle,
-        _theme,
-      ]
+      [onFocus, _inputContainerStyle, _labelStyle, _theme]
     );
 
     const onBlurInput = useCallback(
@@ -113,13 +111,24 @@ export const Input = forwardRef<InputHandler, InputProps>(
           style: _labelStyle,
         });
       },
-      [
-        onBlur,
-        labelRef.current,
-        inputContainerRef.current,
-        _inputContainerStyle,
-        _labelStyle,
-      ]
+      [onBlur, _inputContainerStyle, _labelStyle]
+    );
+
+    const setValue = useCallback((text: string) => {
+      value.current = text;
+      inputRef.current?.setNativeProps({ text });
+    }, []);
+
+    const getValue = useCallback((): string => {
+      return value.current;
+    }, []);
+
+    const _onChangeText = useCallback(
+      (text: string) => {
+        value.current = text;
+        onChangeText(text);
+      },
+      [onChangeText]
     );
 
     useImperativeHandle(
@@ -128,15 +137,15 @@ export const Input = forwardRef<InputHandler, InputProps>(
         inputRef: inputRef.current,
         inputContainerRef: inputContainerRef.current,
         containerRef: containerRef.current,
-        focused: inputRef.current?.isFocused(),
-        value: _value,
-        setValue: setValue,
+        setValue,
+        getValue,
       }),
       [
-        _value,
         inputRef.current,
         containerRef.current,
         inputContainerRef.current,
+        setValue,
+        getValue,
       ]
     );
 
@@ -157,16 +166,12 @@ export const Input = forwardRef<InputHandler, InputProps>(
         <View ref={inputContainerRef} style={_inputContainerStyle}>
           {Left}
           <TextInput
-            value={_value}
             ref={inputRef}
-            style={[styles.input, _theme?.inputStyle, inputStyle]}
+            style={[styles.input, _theme?.inputStyle, inputStyle, textStyles]}
             onFocus={onFocusInput}
             onBlur={onBlurInput}
-            autoFocus={autoFocus}
-            onChangeText={(text) => {
-              setValue(text);
-              onChangeText(text);
-            }}
+            onChangeText={_onChangeText}
+            defaultValue={initValue}
             {...props}
           />
           {Right}

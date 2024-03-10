@@ -7,13 +7,12 @@ import {
   TextStyle,
   View,
 } from "react-native";
+import { StyleInProps } from "../../functions/propsToStyle";
 
 type DataObject = {
   value: string;
   title: string;
 };
-
-// type Modify<T, R> = Omit<T, keyof R> & R;
 
 export type Data = DataObject | string;
 
@@ -24,7 +23,7 @@ export interface TListRenderItem extends ListRenderItemInfo<Data> {
 
 export interface ListProps
   extends Omit<VirtualizedListProps<Data>, "renderItem"> {
-  pickItem: (data: Data) => void;
+  pickItem?: (data: Data) => void;
   reverse?: boolean;
   _value?: Data;
   selectedItemStyle?: StyleProp<TextStyle>;
@@ -34,7 +33,7 @@ export interface ListProps
   renderItem?: (data: TListRenderItem) => ReactElement;
 }
 
-export type PickerProps = {
+export type PickerProps = StyleInProps & {
   containerStyle?: StyleProp<ViewStyle>;
   pickerStyle?: StyleProp<ViewStyle>;
   labelStyle?: StyleProp<TextStyle>;
@@ -42,14 +41,11 @@ export type PickerProps = {
   textStyle?: StyleProp<TextStyle>;
   placeholderTextColor?: string;
   value?: Data;
-  onPick?: (data: Data) => void;
   data?: Data[];
   placeholder?: string;
   label?: string;
   initValue?: Data;
   note?: string;
-  onOpen?: () => void;
-  onClose?: () => void;
   Left?: ReactNode;
   Right?: ReactNode;
   listProps?: ListProps;
@@ -59,6 +55,9 @@ export type PickerProps = {
   name?: string;
   theme?: string;
   themes?: PickerThemesObject;
+  onPick?: (data: Data) => void;
+  onOpen?: () => void;
+  onClose?: () => void;
 };
 
 export type PickerTheme = {
@@ -83,6 +82,7 @@ export type PickerThemesObject = {
 export type PickerHandler = {
   value: Data;
   setValue: (value: Data) => void;
+  getValue: () => Data;
   clear: () => void;
   open: () => void;
   close: () => void;

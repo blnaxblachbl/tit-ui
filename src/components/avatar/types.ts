@@ -6,6 +6,7 @@ import {
   ImageStyle,
   TextStyle,
 } from "react-native";
+import { StyleInProps } from "../../functions/propsToStyle";
 
 export type AvatarTheme = {
   style?: StyleProp<ViewStyle>;
@@ -19,7 +20,7 @@ export type AvatarThemesObject = {
   [name: string]: AvatarTheme;
 };
 
-export type AvatarProps = {
+export type AvatarProps = StyleInProps & {
   source?: ImageSourcePropType;
   nameString?: string;
   onPress?: () => void;

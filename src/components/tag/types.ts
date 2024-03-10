@@ -1,22 +1,24 @@
-import {ReactNode} from 'react';
+import { ReactNode } from "react";
 import {
   GestureResponderEvent,
   StyleProp,
   TextStyle,
   ViewStyle,
   ActivityIndicatorProps,
-} from 'react-native';
+} from "react-native";
+
+import { StyleInProps } from "../../functions/propsToStyle";
 
 export type RepresentColor =
-  | 'red'
-  | 'orange'
-  | 'yellow'
-  | 'lime'
-  | 'green'
-  | 'blue'
-  | 'purple';
+  | "red"
+  | "orange"
+  | "yellow"
+  | "lime"
+  | "green"
+  | "blue"
+  | "purple";
 
-export type TagProps = {
+export type TagProps = StyleInProps & {
   text: string;
   onPress?: (event: GestureResponderEvent) => void;
   style?: StyleProp<ViewStyle>;

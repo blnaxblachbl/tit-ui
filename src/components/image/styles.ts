@@ -4,6 +4,7 @@ export const styles = StyleSheet.create({
   container: {
     width: "100%",
     overflow: "hidden",
+    zIndex: 1,
   },
   loading: {
     ...StyleSheet.absoluteFillObject,

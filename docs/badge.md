@@ -27,10 +27,11 @@ return (
 
 #### Props
 
-| Name      | Description                                                                                                                               | Default   | Type              |
-| --------- | ----------------------------------------------------------------------------------------------------------------------------------------- | --------- | ----------------- |
-| badge     | used if you need to render badge on avatar                                                                                                | 0         | number            |
-| style     | style of the component container                                                                                                          | undefined | style             |
-| textStyle | style of the badge value                                                                                                                  | undefined | style             |
-| themes    | provide an object with all style props to configure your styled by theme. to lern more click [here](https://tit-ui.github.io/docs?page=themes) | undefined | BadgeThemesObject |
-| theme     | name of procided theme                                                                                                                    | undefined | string            |
+| Name            | Description                                                                                                                                    | Default   | Type              |
+| --------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | --------- | ----------------- |
+| badge           | used if you need to render badge on avatar                                                                                                     | 0         | number            |
+| style           | style of the component container                                                                                                               | undefined | style             |
+| textStyle       | style of the badge value                                                                                                                       | undefined | style             |
+| themes          | provide an object with all style props to configure your styled by theme. to lern more click [here](https://tit-ui.github.io/docs?page=themes) | undefined | BadgeThemesObject |
+| theme           | name of procided theme                                                                                                                         | undefined | string            |
+| styles in props | provide special props to quick style changes. to lern more click [here](https://tit-ui.github.io/docs?page=styles)                                              |           |                   |

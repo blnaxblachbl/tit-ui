@@ -1,7 +1,6 @@
 export * from "./avatar";
 export * from "./badge";
 export * from "./button";
-export * from "./flatlist";
 export * from "./image";
 export * from "./input";
 export * from "./picker";

@@ -1,9 +1,9 @@
 # Welcome to the TIT-UI lib!
 
-TIT-UI is a simple library that contains a set of UI components, functions, Form creating and global state managment functionality.
+TIT-UI is a simple library that contains a set of UI components, functions and global state managment functionality.
 
 ## Documentation
-You can see all [Documentation here](https://blnaxblachbl.github.io/tit-ui-docs)
+You can see all [Documentation here](https://tit-ui.github.io/docs)
 
 ## Instalation
 To install lib open your project in command line and run:
@@ -18,11 +18,9 @@ Thats it!
 
 ## List of Components
 - [Provider](/docs/provider.md)
-- [Form](/docs/form.md)
 - [Avatar](/docs/avatar.md)
 - [Badge](/docs/badge.md)
 - [Button](/docs/badge.md)
-- [FlatList](/docs/flatlist.md)
 - [Image](/docs/image.md)
 - [Input](/docs/input.md)
 - [Picker](/docs/picker.md)
@@ -36,6 +34,9 @@ Thats it!
 - [normalize()](/docs/normalize.md)
 - [hexToRgba()](/docs/hexToRgba.md)
 
+## Hooks
+- [usePropsToStyle()](/docs/styles.md)
+
 ## Preview shots 
 
 ### Avatar
@@ -44,8 +45,6 @@ Thats it!
 ![alt badge](https://github.com/blnaxblachbl/tit-ui/blob/main/images/badge.jpg?raw=true)
 ### Button
 ![alt button](https://github.com/blnaxblachbl/tit-ui/blob/main/images/button.png?raw=true)
-### FlatList
-![alt flatlist](https://github.com/blnaxblachbl/tit-ui/blob/main/gifs/flat-list.gif?raw=true)
 ### Image
 ![alt image](https://github.com/blnaxblachbl/tit-ui/blob/main/gifs/image.gif?raw=true)
 ### Picker

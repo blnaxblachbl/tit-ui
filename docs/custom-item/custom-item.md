@@ -1,8 +1,6 @@
-## How to use your own components in Form
+## How to use your own components in Form - deprecate, from 0.6
 
-You should modify your component to be able to return its value by reference.
-
-Let me explain. **STEP 1** - Create your own component. like this:
+**STEP 1** - Create your own component. like this:
 
 ```tsx
 import { useState } from "react";
@@ -19,90 +17,44 @@ const MyInput = (props) => {
 export default MyInput;
 ```
 
-Ok. Thats was easy... Now you should forward the reference of this component, use **forwardRef** function of React.
+Now you should add some props to able Form component to use it - **name**, **initValue**, **required** and **onFormValueChange**.
 
 **STEP 2** - forwarding reference:
 
 ```tsx
-import { useState, forwardRef } from "react"; // <--- this function
+import { useState } from "react";
 import { TextInput, TextInputProps } from "react-native";
 
 type MyInputProps = TextInputProps & {
-  name?: string;
-  required?: boolean;
+  name?: string; // <--- add this
+  required?: boolean; // <--- add this
+  initValue?: string; // <--- add this
+  onFormValueChange?: (value: string) => void; // <--- add this
 };
 
-const MyInput = forwardRef<TextInput, MyInputProps>((props, ref) => {
+const MyInput = ({
+  initValue = "",
+  onFormValueChange = () => {},
+  ...props,
+}: MyInputProps) => {
   const [text, setText] = useState("");
 
   return (
-    <TextInput value={text} onChangeText={(text) => setText(text)} {...props} />
+    <TextInput
+      value={text}
+      defaultValue={initValue} // <--- add this
+      onChangeText={(text) => {
+        setText(text);
+        onFormValueChange(text); // <--- add this
+      }}
+      {...props}
+    />
   );
-});
-
-export default MyInput;
-```
-
-Greate! Now you should return component value by reference. To solve it, you need **useImperativeHandle** React hook.
-
-**STEP 3** - returning value:
-
-```tsx
-import { useState, forwardRef, useImperativeHandle } from "react"; // <--- this hook
-import { TextInput, TextInputProps } from "react-native";
-
-type MyInputProps = TextInputProps & {
-  name?: string;
-  required?: boolean;
 };
 
-type MyTextInputHandler = {
-  value: string;
-}
-
-const MyInput = forwardRef<MyTextInputHandler, MyInputProps>((props, ref) => {
-  const [text, setText] = useState<string>("");
-
-  useImperativeHandle(
-    ref,
-    () => ({
-      value: text, // <--- returning value
-    }),
-    [text]
-  );
-
-  return (
-    <TextInput value={text} onChangeText={(text: string;) => setText(text)} {...props} />
-  );
-});
-
 export default MyInput;
 ```
 
-Well done! Now you can get component value by reference. And now this component ready to be used in Form component. Let me show you how to get value by reference:
-
-```tsx
-import MyInput from '../components/MyInput.js'
-import { Button } from 'tit-ui'
-
-const Screen = (props) => {
-  const inputRef = useRef()
-
-  const getValue = () => {
-    // inputRef.current.value <--- this is the value of component
-    console.log(inputRef.current?.value)
-  }
-
-  return (
-    <MyInput ref={inputRef} />
-    <Button
-      text='Get value'
-      onPress={getValue}
-    />
-  )
-}
-
-export default MyInput
-```
+Well done! Now this component ready to be used in Form component.
 
 I hope it's help.

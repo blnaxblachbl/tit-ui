@@ -1,4 +1,4 @@
-## FlatList
+## FlatList - deprecate, from 0.6
 
 This is modified React-Native FlatList component.
 

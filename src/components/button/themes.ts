@@ -1,4 +1,4 @@
-import {ButtonTheme, ButtonThemesObject} from './types';
+import {ButtonThemesObject} from './types';
 
 export const defaultThemes: ButtonThemesObject = {
   default: {

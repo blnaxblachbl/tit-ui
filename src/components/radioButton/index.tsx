@@ -10,6 +10,7 @@ import { View, Text, TouchableWithoutFeedback } from "react-native";
 
 import { styles } from "./styles";
 import { RadioButtonHandler, RadioButtonProps } from "./types";
+import { usePropsToStyle } from "../../hooks/usePropsToStyle";
 
 export * from "./types";
 
@@ -21,19 +22,21 @@ export const Radio = forwardRef<RadioButtonHandler, RadioButtonProps>(
       circleStyle,
       titleStyle,
       value = undefined,
-      onPress = () => {},
       title,
       activeColor,
       inactiveColor,
       initValue = false,
       theme,
       themes = {},
+      onPress = () => {},
+      ...props
     },
     ref
   ) => {
-    const refs = useRef(new Map()).current;
+    const containerRef = useRef<View>(null);
     const [innerValue, setInnerValue] = useState<boolean>(initValue);
 
+    const { viewStyles, textStyles } = usePropsToStyle(props);
     const _theme = useMemo(() => themes[theme], [theme, themes]);
     const _activeColor = useMemo(
       () => activeColor || _theme?.activeColor || "#494043",
@@ -43,19 +46,10 @@ export const Radio = forwardRef<RadioButtonHandler, RadioButtonProps>(
       () => inactiveColor || _theme?.inactiveColor || "#494043",
       [_theme, inactiveColor]
     );
-
     const _value = useMemo(
       () => (typeof value === "boolean" ? value : innerValue),
       [innerValue, value]
     );
-
-    const _onPress = useCallback(() => {
-      setInnerValue((v) => !v);
-      if (typeof onPress === "function") {
-        onPress(!innerValue);
-      }
-    }, [onPress, innerValue]);
-
     const _circleStyle = useMemo(
       () => [
         styles.radioButton,
@@ -67,7 +61,6 @@ export const Radio = forwardRef<RadioButtonHandler, RadioButtonProps>(
       ],
       [circleStyle, _value, _activeColor, _inactiveColor, _theme]
     );
-
     const _innerCircleStyle = useMemo(
       () => [
         styles.radioCircle,
@@ -79,27 +72,40 @@ export const Radio = forwardRef<RadioButtonHandler, RadioButtonProps>(
       ],
       [innerCircleStyle, _value, _activeColor, _inactiveColor, _theme]
     );
-
     const _titleStyle = useMemo(
-      () => [styles.radioText, _theme?.titleStyle, titleStyle],
-      [titleStyle, _theme]
+      () => [styles.radioText, _theme?.titleStyle, titleStyle, textStyles],
+      [titleStyle, _theme, textStyles]
     );
+
+    const _onPress = useCallback(() => {
+      setInnerValue(!innerValue);
+      onPress(!innerValue);
+    }, [innerValue, onPress]);
+
+    const getValue = useCallback(() => {
+      return value;
+    }, []);
 
     useImperativeHandle(
       ref,
       () => ({
-        value: _value,
+        getValue,
         setValue: setInnerValue,
-        containerRef: refs.get("container"),
+        containerRef,
       }),
-      [_value, refs]
+      [_value, getValue, setInnerValue]
     );
 
     return (
       <TouchableWithoutFeedback onPress={_onPress}>
         <View
-          ref={(r) => refs.set("container", r)}
-          style={[styles.container, _theme?.containerStyle, containerStyle]}
+          ref={containerRef}
+          style={[
+            styles.container,
+            _theme?.containerStyle,
+            containerStyle,
+            viewStyles,
+          ]}
         >
           <View style={_circleStyle}>
             {_value ? <View style={_innerCircleStyle} /> : null}

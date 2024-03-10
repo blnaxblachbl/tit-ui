@@ -1,13 +1,13 @@
 import { RefObject } from "react";
 import { StyleProp, ViewStyle, View, TextStyle } from "react-native";
+import { StyleInProps } from "../../functions/propsToStyle";
 
-export type RadioButtonProps = {
+export type RadioButtonProps = StyleInProps & {
   containerStyle?: StyleProp<ViewStyle>;
   innerCircleStyle?: StyleProp<ViewStyle>;
   circleStyle?: StyleProp<ViewStyle>;
   titleStyle?: StyleProp<TextStyle>;
   value?: boolean;
-  onPress?: (value: boolean) => void;
   title?: string;
   activeColor?: string;
   inactiveColor?: string;
@@ -15,11 +15,12 @@ export type RadioButtonProps = {
   name?: string;
   theme?: string;
   themes?: RadioButtonThemesObject;
+  onPress?: (value: boolean) => void;
 };
 
 export type RadioButtonHandler = {
-  value: boolean;
   setValue: (value: boolean) => void;
+  getValue: () => boolean;
   containerRef: RefObject<View>;
 };
 

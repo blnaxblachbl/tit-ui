@@ -25,10 +25,11 @@ import {
   ListProps,
   TListRenderItem,
 } from "./types";
+import { usePropsToStyle } from "../../hooks/usePropsToStyle";
 
 const { height } = Dimensions.get("window");
 
-const getValue = (data: Data | undefined) => {
+export const ejectPickerValue = (data: Data | undefined) => {
   if (typeof data === "string") {
     return data;
   }
@@ -38,7 +39,7 @@ const getValue = (data: Data | undefined) => {
   return "";
 };
 
-const getLabel = (data: Data | undefined) => {
+export const ejectPickerLabel = (data: Data | undefined) => {
   if (typeof data === "string") {
     return data;
   }
@@ -60,14 +61,11 @@ export const Picker = forwardRef<PickerHandler, PickerProps>(
       textStyle,
       placeholderTextColor,
       value,
-      onPick = () => {},
       data = [],
       placeholder = "Pick something",
       label,
       initValue,
       note,
-      onOpen = () => {},
-      onClose = () => {},
       Left = null,
       Right = null,
       listProps = {},
@@ -76,30 +74,40 @@ export const Picker = forwardRef<PickerHandler, PickerProps>(
       requiredText = "*",
       theme,
       themes = {},
+      onOpen = () => {},
+      onClose = () => {},
+      onPick = () => {},
+      ...props
     },
     ref
   ) => {
-    const refs = useRef(new Map()).current;
+    const containerRef = useRef<View>(null);
+    const pickerRef = useRef<View>(null);
+    const listRef = useRef<VirtualizedList<Data>>(null);
     const [text, setText] = useState<Data | undefined>(initValue);
     const [visible, setVisble] = useState<boolean>(false);
     const [reverse, setReverse] = useState(false);
 
+    const { viewStyles, textStyles: propsTextStyles } = usePropsToStyle(props);
     const _theme = useMemo(() => themes[theme], [theme, themes]);
     const _value = useMemo(() => value || text, [text, value]);
     const _textStyle = useMemo(
-      () => [styles.value, _theme?.textStyle, textStyle],
-      [textStyle, _theme]
+      () => [styles.value, textStyle, _theme?.textStyle, propsTextStyles],
+      [textStyle, _theme, propsTextStyles]
+    );
+    const _containerStyle = useMemo(
+      () => [
+        styles.container,
+        containerStyle,
+        _theme?.containerStyle,
+        viewStyles,
+      ],
+      [containerStyle, _theme, viewStyles]
     );
 
-    const openPicker = () => {
+    const openPicker = useCallback(() => {
       setVisble(true);
-    };
-
-    const pickItem = (item: Data) => {
-      setText(item);
-      onPick(item);
-      closePicker();
-    };
+    }, []);
 
     const onShow = useCallback(async () => {
       const {
@@ -107,24 +115,24 @@ export const Picker = forwardRef<PickerHandler, PickerProps>(
         height: _height,
         x,
         y,
-      } = await measure(refs.get("picker"));
+      } = await measure(pickerRef.current);
       const inverted = y - _height / 2 > height / 2 ? true : false;
       setReverse(inverted);
-      const listRef = refs.get("list");
-      if (listRef) {
+      if (listRef.current) {
         if (_value && data.length > 0) {
           const index = data.findIndex(
-            (item) => getValue(item) === getValue(_value)
+            (item) => ejectPickerValue(item) === ejectPickerValue(_value)
           );
           if (index > -1) {
-            listRef.scrollToIndex({
+            listRef.current.scrollToIndex({
               index,
               viewOffset: normalize(21),
               animated: false,
             });
           }
         }
-        listRef.setNativeProps({
+        //@ts-ignore
+        listRef.current.setNativeProps({
           style: {
             width: _width,
             top: inverted ? undefined : y + _height + 2,
@@ -135,12 +143,25 @@ export const Picker = forwardRef<PickerHandler, PickerProps>(
         });
       }
       onOpen();
-    }, [onOpen, refs, setReverse, _value, data]);
+    }, [onOpen, setReverse, _value, data]);
 
-    const closePicker = () => {
+    const closePicker = useCallback(() => {
       setVisble(false);
       onClose();
-    };
+    }, [onClose]);
+
+    const getValue = useCallback((): Data => {
+      return _value;
+    }, []);
+
+    const pickItem = useCallback(
+      (item: Data) => {
+        setText(item);
+        onPick(item);
+        closePicker();
+      },
+      [onPick, closePicker]
+    );
 
     useImperativeHandle(
       ref,
@@ -150,16 +171,14 @@ export const Picker = forwardRef<PickerHandler, PickerProps>(
         clear: () => setText(undefined),
         open: openPicker,
         close: closePicker,
-        containerRef: refs.get("picker"),
+        containerRef,
+        getValue,
       }),
-      [_value, refs]
+      [_value, getValue]
     );
 
     return (
-      <View
-        ref={(r) => refs.set("container", r)}
-        style={[styles.container, _theme?.containerStyle, containerStyle]}
-      >
+      <View ref={containerRef} style={_containerStyle}>
         {label && (
           <Text style={[styles.label, _theme?.labelStyle, labelStyle]}>
             {label}
@@ -178,13 +197,13 @@ export const Picker = forwardRef<PickerHandler, PickerProps>(
         )}
         <TouchableNativeFeedback onPress={openPicker}>
           <View
-            ref={(r) => refs.set("picker", r)}
+            ref={pickerRef}
             style={[styles.picker, _theme?.pickerStyle, pickerStyle]}
           >
             {Left}
             {_value ? (
               <Text numberOfLines={1} style={_textStyle}>
-                {getLabel(_value)}
+                {ejectPickerLabel(_value)}
               </Text>
             ) : (
               <Text
@@ -223,7 +242,7 @@ export const Picker = forwardRef<PickerHandler, PickerProps>(
             onTouchEndCapture={closePicker}
           >
             <List
-              ref={(r) => refs.set("list", r)}
+              ref={listRef}
               data={data}
               pickItem={pickItem}
               reverse={reverse}
@@ -256,7 +275,7 @@ const List = forwardRef<VirtualizedList<Data>, ListProps>(
     ref
   ) => {
     const _renderImtem = ({ item, index, ...data }: TListRenderItem) => {
-      const selected = getValue(item) === getValue(_value);
+      const selected = ejectPickerValue(item) === ejectPickerValue(_value);
       if (renderItem) {
         return renderItem({ item, index, ...data } as TListRenderItem);
       }
@@ -280,7 +299,7 @@ const List = forwardRef<VirtualizedList<Data>, ListProps>(
               selectedStyle,
             ]}
           >
-            {getLabel(item)}
+            {ejectPickerLabel(item)}
           </Text>
         </TouchableNativeFeedback>
       );
@@ -304,7 +323,7 @@ const List = forwardRef<VirtualizedList<Data>, ListProps>(
           </Text>
         }
         inverted={reverse}
-        keyExtractor={(item) => getValue(item)}
+        keyExtractor={(item) => ejectPickerValue(item)}
         {...listProps}
       />
     );

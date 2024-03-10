@@ -1,28 +1,31 @@
 import { ReactElement } from "react";
 import { StyleProp, ViewStyle, View, ViewProps } from "react-native";
 
-export interface SliderProps extends ViewProps {
-  minValue?: number;
-  maxValue?: number;
-  trackStyle?: StyleProp<ViewStyle>;
-  circleStyle?: StyleProp<ViewStyle>;
-  circleSize?: number;
-  circleIsScale?: boolean;
-  circleMaxScale?: number;
-  onValueChange?: (value: number) => void;
-  CustomCircle?: ReactElement;
-  initValue?: number;
-  name?: string;
-  theme?: string;
-  themes?: SliderThemesObject;
-}
+import { StyleInProps } from "../../functions/propsToStyle";
+
+export type SliderProps = ViewProps &
+  StyleInProps & {
+    minValue?: number;
+    maxValue?: number;
+    trackStyle?: StyleProp<ViewStyle>;
+    circleStyle?: StyleProp<ViewStyle>;
+    circleSize?: number;
+    circleIsScale?: boolean;
+    circleMaxScale?: number;
+    CustomCircle?: ReactElement;
+    initValue?: number;
+    name?: string;
+    theme?: string;
+    themes?: SliderThemesObject;
+    onValueChange?: (value: number) => void;
+  };
 
 export type SliderSetValueOpotion = {
   animated?: boolean;
 };
 
 export type SliderHandler = {
-  value: number;
+  getValue: () => number;
   setValue?: (value: number, options?: SliderSetValueOpotion) => void;
   containerRef: View | null;
 };

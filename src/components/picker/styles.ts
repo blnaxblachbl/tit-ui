@@ -14,7 +14,7 @@ export const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     borderWidth: 1,
-    borderColor: "#A9A9A9",
+    borderColor: "#D3D3D3",
     height: normalize(42),
   },
   label: {
@@ -35,7 +35,7 @@ export const styles = StyleSheet.create({
     position: "absolute",
     opacity: 0,
     borderWidth: 1,
-    borderColor: "#A9A9A9",
+    borderColor: "#D3D3D3",
     borderRadius: 6,
     backgroundColor: "#fff",
     overflow: "hidden",

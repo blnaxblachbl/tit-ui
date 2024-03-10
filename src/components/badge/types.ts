@@ -1,4 +1,5 @@
 import { StyleProp, TextStyle, ViewStyle } from "react-native";
+import { StyleInProps } from "../../functions/propsToStyle";
 
 export type BadgeTheme = {
   style?: StyleProp<ViewStyle>;
@@ -9,7 +10,7 @@ export type BadgeThemesObject = {
   [name: string]: BadgeTheme;
 };
 
-export type BadgeProps = {
+export type BadgeProps = StyleInProps & {
   style?: StyleProp<ViewStyle>;
   textStyle?: StyleProp<TextStyle>;
   badge: number;

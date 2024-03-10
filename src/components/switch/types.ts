@@ -1,7 +1,9 @@
 import { RefObject } from "react";
 import { StyleProp, ViewStyle, TextStyle, View } from "react-native";
 
-export type SwitchProps = {
+import { StyleInProps } from "../../functions/propsToStyle";
+
+export type SwitchProps = StyleInProps & {
   containerStyle?: StyleProp<ViewStyle>;
   circleStyle?: StyleProp<ViewStyle>;
   textStyle?: StyleProp<TextStyle>;
@@ -11,18 +13,18 @@ export type SwitchProps = {
   disabledBackgroundColor?: string;
   enabledText?: string;
   disabledText?: string;
-  onChangeState?: (value: boolean) => void;
   initValue?: boolean;
   value?: boolean;
   name?: string;
   theme?: string;
   themes?: SwitchThemesObject;
+  onChangeState?: (value: boolean) => void;
 };
 
 export type SwitchHandler = {
-  value: boolean;
-  setValue: (value: boolean) => void;
   containerRef: RefObject<View>;
+  getValue: () => boolean;
+  setValue: (value: boolean) => void;
 };
 
 export type SwitchTheme = {

@@ -18,6 +18,7 @@ import {
 
 import { styles } from "./styles";
 import { Point, TImageProps } from "./types";
+import { usePropsToStyle } from "../../hooks/usePropsToStyle";
 
 const { width } = Dimensions.get("window");
 
@@ -37,8 +38,8 @@ export const Image = forwardRef<RNImage, TImageProps>(
       imageStyle,
 
       loadingContainerStyle,
-      loadingColor,
-      loadingSize,
+      loadingColor = "#000",
+      loadingSize = "large",
 
       theme,
       themes = {},
@@ -50,12 +51,12 @@ export const Image = forwardRef<RNImage, TImageProps>(
     },
     ref
   ) => {
+    const { viewStyles } = usePropsToStyle(props);
     const pan = useRef(new Animated.ValueXY({ x: 0, y: 0 })).current;
     const scale = useRef(new Animated.Value(1)).current;
     const _theme = useMemo(() => themes[theme], [theme, themes]);
     let offsetDistance = 0;
 
-    const [_source, setSource] = useState(source);
     const [loading, setLoading] = useState(false);
 
     const panResponder = useMemo(
@@ -121,9 +122,8 @@ export const Image = forwardRef<RNImage, TImageProps>(
       (error: NativeSyntheticEvent<ImageErrorEventData>) => {
         onError(error);
         setLoading(false);
-        setSource({ uri: "" });
       },
-      [onError, setLoading, setSource]
+      [onError, setLoading]
     );
 
     const _containerStyle = useMemo(
@@ -134,8 +134,9 @@ export const Image = forwardRef<RNImage, TImageProps>(
           transform: [{ translateX: pan.x }, { translateY: pan.y }, { scale }],
         },
         containerStyle,
+        viewStyles,
       ],
-      [containerStyle, pan, scale, _theme]
+      [containerStyle, pan, scale, _theme, viewStyles]
     );
 
     const _imageStyle = useMemo(
@@ -156,7 +157,7 @@ export const Image = forwardRef<RNImage, TImageProps>(
       <Animated.View {...panResponder.panHandlers} style={_containerStyle}>
         <RNImage
           ref={ref}
-          source={_source}
+          source={source}
           onLoadStart={_onLoadStart}
           onLoadEnd={_onLoadEnd}
           onError={_onError}
@@ -167,8 +168,8 @@ export const Image = forwardRef<RNImage, TImageProps>(
           <View style={_loadingContainerStyle}>
             <ActivityIndicator
               animating
-              size={loadingSize || _theme?.loadingSize || 'large'}
-              color={loadingColor || _theme?.loadingColor || '#000'}
+              size={loadingSize || _theme?.loadingSize}
+              color={loadingColor || _theme?.loadingColor}
             />
           </View>
         ) : null}

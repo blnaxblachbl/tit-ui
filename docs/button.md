@@ -17,21 +17,22 @@ return (
 
 #### Props
 
-| Name              | Description                                                                                                                               | Default                 | Type                                      |
-| ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ----------------------- | ----------------------------------------- |
-| text              | text that will display on button                                                                                                          | "Button"                | string                                    |
-| style             | style of Button component                                                                                                                 | undefined               | style                                     |
-| textStyle         | style of button text                                                                                                                      | undefined               | style                                     |
-| disabledStyle     | style of disabled Button component                                                                                                        | undefined               | style                                     |
-| disabledTextStyle | style of disabled button text                                                                                                             | undefined               | style                                     |
-| onPress           | function that call when button pressed                                                                                                    | undefined               | func                                      |
-| loading           | boolean props that show or hide spinner, also if loading true function "onPress" will not be called                                       | false                   | bool                                      |
-| loadingColor      | color of loading spinner                                                                                                                  | "#ffffff"               | string                                    |
-| loadingSize       | size of loading spinner                                                                                                                   | "small"                 | number or 'small' or 'large' or undefined |
-| Left              | component that will render on left side of Button component                                                                               | null                    | React Component                           |
-| Right             | component that will render on right side of Button component                                                                              | null                    | React Component                           |
+| Name              | Description                                                                                                                                    | Default                 | Type                                      |
+| ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------- | ----------------------------------------- |
+| text              | text that will display on button                                                                                                               | "Button"                | string                                    |
+| style             | style of Button component                                                                                                                      | undefined               | style                                     |
+| textStyle         | style of button text                                                                                                                           | undefined               | style                                     |
+| disabledStyle     | style of disabled Button component                                                                                                             | undefined               | style                                     |
+| disabledTextStyle | style of disabled button text                                                                                                                  | undefined               | style                                     |
+| onPress           | function that call when button pressed                                                                                                         | undefined               | func                                      |
+| loading           | boolean props that show or hide spinner, also if loading true function "onPress" will not be called                                            | false                   | bool                                      |
+| loadingColor      | color of loading spinner                                                                                                                       | "#ffffff"               | string                                    |
+| loadingSize       | size of loading spinner                                                                                                                        | "small"                 | number or 'small' or 'large' or undefined |
+| Left              | component that will render on left side of Button component                                                                                    | null                    | React Component                           |
+| Right             | component that will render on right side of Button component                                                                                   | null                    | React Component                           |
 | themes            | provide an object with all style props to configure your styled by theme. to lern more click [here](https://tit-ui.github.io/docs?page=themes) | _check_ _code_ _bellow_ | ButtonThemesObject                        |
-| theme             | name of procided theme                                                                                                                    | undefined               | string                                    |
+| theme             | name of procided theme                                                                                                                         | undefined               | string                                    |
+| styles in props   | provide special props to quick style changes. to lern more click [here](https://tit-ui.github.io/docs?page=styles)                                              |                         |                                           |
 
 #### Default Theme
 

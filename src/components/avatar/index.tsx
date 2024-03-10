@@ -5,6 +5,7 @@ import { Badge } from "../badge";
 
 import { styles } from "./styles";
 import { AvatarProps } from "./types";
+import { usePropsToStyle } from "../../hooks/usePropsToStyle";
 
 export * from "./types";
 
@@ -23,10 +24,12 @@ export const Avatar = forwardRef<TouchableOpacity, AvatarProps>(
       letterStyle,
       themes = {},
       theme,
+      ...props
     },
     ref
   ) => {
     const _theme = useMemo(() => themes[theme], [theme, themes]);
+    const { viewStyles, textStyles } = usePropsToStyle(props);
 
     const renderImage = useCallback(() => {
       let letters = ["N", "A"];
@@ -66,12 +69,12 @@ export const Avatar = forwardRef<TouchableOpacity, AvatarProps>(
         ref={ref}
         onPress={onPress}
         activeOpacity={1}
-        style={[styles.container, _theme?.style, style]}
+        style={[styles.container, _theme?.style, style, viewStyles]}
       >
         {renderImage()}
         <Badge
           style={[styles.badge, _theme?.badgeStyle, badgeStyle]}
-          textStyle={[badgeTextStyle, _theme?.badgeTextStyle]}
+          textStyle={[badgeTextStyle, _theme?.badgeTextStyle, textStyles]}
           badge={badge}
         />
       </TouchableOpacity>

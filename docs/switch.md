@@ -46,27 +46,28 @@ return (
 
 #### Props
 
-| Name                    | Description                                                                                                                               | Default                      | Type               |
-| ----------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------- | ------------------ |
-| ref                     | reference to component                                                                                                                    | undefined                    | SwitchHandler      |
-| value                   | value of switch                                                                                                                           | undefined                    | bool               |
-| initValue               | initial position                                                                                                                          | false                        | bool               |
-| textStyle               | switch text style                                                                                                                         | undefined                    | style              |
-| containerStyle          | switch container style                                                                                                                    | undefined                    | style              |
-| circleStyle             | switch circle style                                                                                                                       | undefined                    | style              |
-| enabledCircleColor      | color for circle of switch when it is on                                                                                                  | '#fff'                       | string             |
-| disabledCircleColor     | color for circle of switch when it is off                                                                                                 | '#fff'                       | string             |
-| enabledText             | text of switch when it is on                                                                                                              | undefined                    | string             |
-| disabledText            | text of switch when it is off                                                                                                             | undefined                    | string             |
-| enabledBackgroundColor  | switch background color when it is on                                                                                                     | '#4666ff'                    | string             |
-| disabledBackgroundColor | switch background color when it is off                                                                                                    | '#ccc'                       | string             |
-| onChangeState           | callback when switch is clicked                                                                                                           | (value) => {callback(value)} | func               |
+| Name                    | Description                                                                                                                                    | Default                      | Type               |
+| ----------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------- | ------------------ |
+| ref                     | reference to component                                                                                                                         | undefined                    | SwitchHandler      |
+| value                   | value of switch                                                                                                                                | undefined                    | bool               |
+| initValue               | initial position                                                                                                                               | false                        | bool               |
+| textStyle               | switch text style                                                                                                                              | undefined                    | style              |
+| containerStyle          | switch container style                                                                                                                         | undefined                    | style              |
+| circleStyle             | switch circle style                                                                                                                            | undefined                    | style              |
+| enabledCircleColor      | color for circle of switch when it is on                                                                                                       | '#fff'                       | string             |
+| disabledCircleColor     | color for circle of switch when it is off                                                                                                      | '#fff'                       | string             |
+| enabledText             | text of switch when it is on                                                                                                                   | undefined                    | string             |
+| disabledText            | text of switch when it is off                                                                                                                  | undefined                    | string             |
+| enabledBackgroundColor  | switch background color when it is on                                                                                                          | '#4666ff'                    | string             |
+| disabledBackgroundColor | switch background color when it is off                                                                                                         | '#ccc'                       | string             |
+| onChangeState           | callback when switch is clicked                                                                                                                | (value) => {callback(value)} | func               |
 | themes                  | provide an object with all style props to configure your styled by theme. to lern more click [here](https://tit-ui.github.io/docs?page=themes) | undefined                    | SwitchThemesObject |
-| theme                   | name of procided theme                                                                                                                    | undefined                    | string             |
+| theme                   | name of procided theme                                                                                                                         | undefined                    | string             |
+| styles in props         | provide special props to quick style changes. to lern more click [here](https://tit-ui.github.io/docs?page=styles)                                              |                              |                    |
 
 #### Methods
 
-| Name       | Description     | Return type |
-| ---------- | --------------- | ----------- |
-| value      | value of switch | bool        |
-| setValue() | setting value   | none        |
+| Name       | Description   | Return type |
+| ---------- | ------------- | ----------- |
+| getValue() | getting value | bool        |
+| setValue() | setting value | none        |

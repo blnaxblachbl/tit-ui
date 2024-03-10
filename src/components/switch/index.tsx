@@ -18,6 +18,7 @@ import {
 
 import { styles } from "./styles";
 import { SwitchHandler, SwitchProps } from "./types";
+import { usePropsToStyle } from "../../hooks/usePropsToStyle";
 
 export * from "./types";
 
@@ -33,37 +34,25 @@ export const Switch = forwardRef<SwitchHandler, SwitchProps>(
       disabledBackgroundColor,
       enabledText = "",
       disabledText = "",
-      onChangeState = () => {},
       initValue = false,
       value,
       theme,
       themes = {},
+      onChangeState = () => {},
+      ...props
     },
     ref
   ) => {
-    const refs = useRef(new Map()).current;
+    const containerRef = useRef<View>(null);
     const [active, setActive] = useState(initValue);
 
+    const { viewStyles, textStyles } = usePropsToStyle(props);
     const _theme = useMemo(() => themes[theme], [theme, themes]);
 
     const _value = useMemo(
       () => (typeof value === "boolean" ? value : active),
       [active, value]
     );
-
-    useEffect(() => {
-      if (Platform.OS === "android") {
-        UIManager.setLayoutAnimationEnabledExperimental(true);
-      }
-    }, []);
-
-    const toggleSwitch = useCallback(() => {
-      LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
-      setActive(!_value);
-      if (typeof onChangeState === "function") {
-        onChangeState(!_value);
-      }
-    }, [_value, onChangeState, setActive]);
 
     const switchContainerAlign = useMemo(
       () => (!_value ? "flex-start" : "flex-end"),
@@ -93,24 +82,39 @@ export const Switch = forwardRef<SwitchHandler, SwitchProps>(
       [_value, enabledText, disabledText]
     );
 
+    const getValue = useCallback(() => _value, [_value]);
+
+    const toggleSwitch = useCallback(() => {
+      LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+      setActive(!_value);
+      onChangeState(!_value);
+    }, [_value, onChangeState, setActive]);
+
+    useEffect(() => {
+      if (Platform.OS === "android") {
+        UIManager.setLayoutAnimationEnabledExperimental(true);
+      }
+    }, []);
+
     useImperativeHandle(
       ref,
       () => ({
-        value: _value,
+        containerRef,
         setValue: setActive,
-        containerRef: refs.get("container"),
+        getValue,
       }),
-      [_value, refs]
+      [_value, getValue]
     );
 
     return (
       <TouchableWithoutFeedback onPress={toggleSwitch}>
         <View
-          ref={(r) => refs.set("container", r)}
+          ref={containerRef}
           style={[
             styles.switchContainerStyle,
             _theme?.containerStyle,
             containerStyle,
+            viewStyles,
             {
               alignItems: switchContainerAlign,
               backgroundColor,
@@ -129,7 +133,12 @@ export const Switch = forwardRef<SwitchHandler, SwitchProps>(
           >
             {circleText ? (
               <Text
-                style={[styles.switchTextStyle, _theme?.textStyle, textStyle]}
+                style={[
+                  styles.switchTextStyle,
+                  _theme?.textStyle,
+                  textStyle,
+                  textStyles,
+                ]}
               >
                 {circleText}
               </Text>

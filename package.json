@@ -41,11 +41,12 @@
     "button",
     "hex to rgb",
     "radio",
-    "form",
     "drop down",
     "slider",
     "toast",
     "store",
-    "tag"
+    "tag",
+    "styles in props",
+    "hooks"
   ]
 }

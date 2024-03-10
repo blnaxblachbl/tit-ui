@@ -6,3 +6,9 @@
 
 #ignore src
 /src
+
+#ignore docs
+/docs
+
+#ignore node_modules
+/node_modules

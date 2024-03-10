@@ -18,11 +18,9 @@ Thats it!
 
 ## List of Components
 - [Provider](/docs/provider.md)
-- [Form](/docs/form.md)
 - [Avatar](/docs/avatar.md)
 - [Badge](/docs/badge.md)
 - [Button](/docs/badge.md)
-- [FlatList](/docs/flatlist.md)
 - [Image](/docs/image.md)
 - [Input](/docs/input.md)
 - [Picker](/docs/picker.md)
@@ -35,6 +33,9 @@ Thats it!
 ## Function
 - [normalize()](/docs/normalize.md)
 - [hexToRgba()](/docs/hexToRgba.md)
+
+## Hooks
+- [usePropsToStyle()](/docs/styles.md)
 
 ## Preview shots 
 

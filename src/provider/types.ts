@@ -1,11 +1,14 @@
-import {ReactNode, Dispatch} from 'react';
+import { ReactNode, Dispatch } from "react";
 
-export type ProviderProps<TInitValueType> = {
+export type ProviderProps<TInitValueType, TAction> = {
   initValue?: TInitValueType;
   children: ReactNode;
+  customReducer?: (state: TInitValueType, action: TAction) => TInitValueType;
 };
 
-export type Readucer = [any, Dispatch<any>];
+export type Action = { type: string; data: any };
+
+export type Readucer<T> = [T, Dispatch<Action>];
 
 export type Partial<T> = {
   [P in keyof T]?: T[P];

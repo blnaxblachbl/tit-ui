@@ -1,5 +1,5 @@
 {
-  "name": "tit-ui",
+  "name": "@tit-ui/core",
   "version": "0.7.0",
   "description": "ui lib for react-native",
   "main": "lib/index.js",
@@ -7,10 +7,6 @@
   "files": [
     "lib/**/*"
   ],
-  "private": true,
-  "workspaces": {
-    "packages": [ "packages/*"]
-  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "rm -r lib && npx tsc --project ./tsconfig.json"

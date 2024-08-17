@@ -1,6 +1,6 @@
 {
   "name": "tit-ui",
-  "version": "0.7.1",
+  "version": "0.7.2",
   "description": "ui lib for react-native",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -26,7 +26,7 @@
   "bugs": {
     "url": "https://github.com/blnaxblachbl/tit-ui/issues"
   },
-  "homepage": "https://tit.dev",
+  "homepage": "https://ui.tit.dev",
   "author": "Tit Hardwood <blnaxblachbl@gmail.com>",
   "license": "MIT",
   "keywords": [

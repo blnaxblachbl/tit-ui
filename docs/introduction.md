@@ -4,7 +4,7 @@ TIT-UI is a simple library that contains a set of UI components, functions and g
 
 ## Documentation
 
-You can see all [Documentation here](https://tit.dev)
+You can see all [Documentation here](https://ui.tit.dev)
 
 ## Instalation
 

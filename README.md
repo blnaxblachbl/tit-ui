@@ -3,7 +3,7 @@
 TIT-UI is a simple library that contains a set of UI components, functions, Form creating and global state managment functionality.
 
 ## Documentation
-You can see all [Documentation here](https://tit.dev)
+You can see all [Documentation here](https://ui.tit.dev)
 
 ## Instalation
 To install lib open your project in command line and run:

@@ -12,7 +12,7 @@ Form is wrapper component that can return all named components value like web fo
 
 5. **Add validation schema(if you need)** - Install [Yup](https://github.com/jquense/yup#getting-started) and provide the Yup object to "validationSchema" prop.
 
-Thats it! Your form is ready. If you want to use your own component in Form, you should modify your component like [this](https://tit.dev/custom-form-item).
+Thats it! Your form is ready. If you want to use your own component in Form, you should modify your component like [this](https://ui.tit.dev/custom-form-item).
 
 ```tsx
 import {
@@ -135,7 +135,7 @@ return (
 | ref              | reference to component                                                                                                                           | undefined | SliderHandler    |
 | onSubmit         | Function that return values and errors by object ({data, errors}) => {...}                                                                       | undefined | function         |
 | initValues       | object of initial values of form                                                                                                                 | undefined | object           |
-| themes           | provide an object with all style props to configure your styled by theme. to lern more click [here](https://tit.dev/themes)                      | undefined | FormThemesObject |
+| themes           | provide an object with all style props to configure your styled by theme. to lern more click [here](https://ui.tit.dev/themes)                   | undefined | FormThemesObject |
 | theme            | name of procided theme                                                                                                                           | undefined | string           |
 | validationSchema | is Yup validation object to validate values. If you want to use this props please install [Yup](https://github.com/jquense/yup#getting-started). | undefined | Yup object       |
 

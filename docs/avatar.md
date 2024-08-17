@@ -33,18 +33,18 @@ return (
 
 #### Props
 
-| Name            | Description                                                                                                                 | Default          | Type                                |
-| --------------- | --------------------------------------------------------------------------------------------------------------------------- | ---------------- | ----------------------------------- |
-| source          | source to image                                                                                                             | undefined        | React-Native Image component source |
-| nameString      | string of user name or description                                                                                          | ""               | string                              |
-| onPress         | function that call when avatar pressed                                                                                      | onPress={()=>{}} | func                                |
-| badge           | used if you need to render badge on avatar                                                                                  | 0                | number                              |
-| style           | style of the component container                                                                                            | {}               | style                               |
-| imageStyle      | style of the image                                                                                                          | {}               | style                               |
-| badgeStyle      | style of the badge                                                                                                          | {}               | style                               |
-| badgeTextStyle  | style of the badge                                                                                                          | {}               | style                               |
-| imageProps      | React-Native Image component props                                                                                          | undefined        | object                              |
-| letterStyle     | style of letters of nameString when imageUrl is empty                                                                       | {}               | style                               |
-| themes          | provide an object with all style props to configure your styled by theme. to lern more click [here](https://tit.dev/themes) | undefined        | AvatarThemesObject                  |
-| theme           | name of procided theme                                                                                                      | undefined        | string                              |
-| styles in props | provide special props to quick style changes. to lern more click [here](https://tit.dev/styles)                             |                  |                                     |
+| Name            | Description                                                                                                                    | Default          | Type                                |
+| --------------- | ------------------------------------------------------------------------------------------------------------------------------ | ---------------- | ----------------------------------- |
+| source          | source to image                                                                                                                | undefined        | React-Native Image component source |
+| nameString      | string of user name or description                                                                                             | ""               | string                              |
+| onPress         | function that call when avatar pressed                                                                                         | onPress={()=>{}} | func                                |
+| badge           | used if you need to render badge on avatar                                                                                     | 0                | number                              |
+| style           | style of the component container                                                                                               | {}               | style                               |
+| imageStyle      | style of the image                                                                                                             | {}               | style                               |
+| badgeStyle      | style of the badge                                                                                                             | {}               | style                               |
+| badgeTextStyle  | style of the badge                                                                                                             | {}               | style                               |
+| imageProps      | React-Native Image component props                                                                                             | undefined        | object                              |
+| letterStyle     | style of letters of nameString when imageUrl is empty                                                                          | {}               | style                               |
+| themes          | provide an object with all style props to configure your styled by theme. to lern more click [here](https://ui.tit.dev/themes) | undefined        | AvatarThemesObject                  |
+| theme           | name of procided theme                                                                                                         | undefined        | string                              |
+| styles in props | provide special props to quick style changes. to lern more click [here](https://ui.tit.dev/styles)                             |                  |                                     |

@@ -30,15 +30,15 @@ return (
 
 #### Props
 
-| Name            | Description                                                                                     | Default          | Type                                                           |
-| --------------- | ----------------------------------------------------------------------------------------------- | ---------------- | -------------------------------------------------------------- |
-| text            | text of tag                                                                                     | "tag"            | string                                                         |
-| onPress         | function that call when tag pressed                                                             | onPress={()=>{}} | func                                                           |
-| style           | style of the component container                                                                | undefined        | style                                                          |
-| textStyle       | style of tag text                                                                               | undefined        | style                                                          |
-| color           | color of tag                                                                                    | undefined        | on of ['red','orange','yellow','lime','green','blue','purple'] |
-| Left            | component that will render on left side of tag text                                             | null             | React Component                                                |
-| Right           | component that will render on right side of tag text                                            | null             | React Component                                                |
-| loading         | boolean props that show or hide spinner                                                         | false            | bool                                                           |
-| loadingProps    | ActivityIndicator Props                                                                         | undefined        | ActivityIndicatorProps                                         |
-| styles in props | provide special props to quick style changes. to lern more click [here](https://tit.dev/styles) |                  |                                                                |
+| Name            | Description                                                                                        | Default          | Type                                                           |
+| --------------- | -------------------------------------------------------------------------------------------------- | ---------------- | -------------------------------------------------------------- |
+| text            | text of tag                                                                                        | "tag"            | string                                                         |
+| onPress         | function that call when tag pressed                                                                | onPress={()=>{}} | func                                                           |
+| style           | style of the component container                                                                   | undefined        | style                                                          |
+| textStyle       | style of tag text                                                                                  | undefined        | style                                                          |
+| color           | color of tag                                                                                       | undefined        | on of ['red','orange','yellow','lime','green','blue','purple'] |
+| Left            | component that will render on left side of tag text                                                | null             | React Component                                                |
+| Right           | component that will render on right side of tag text                                               | null             | React Component                                                |
+| loading         | boolean props that show or hide spinner                                                            | false            | bool                                                           |
+| loadingProps    | ActivityIndicator Props                                                                            | undefined        | ActivityIndicatorProps                                         |
+| styles in props | provide special props to quick style changes. to lern more click [here](https://ui.tit.dev/styles) |                  |                                                                |
